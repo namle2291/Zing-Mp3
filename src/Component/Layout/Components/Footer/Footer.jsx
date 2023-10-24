@@ -31,15 +31,24 @@ import classNames from "classnames/bind";
 import styles from "./Footer.module.scss";
 import AudioPlayer from "../../../PLayer/AudioPlayer";
 import { setFavouriteSong } from "../../../../features/setPlayNow/playNow";
+import { useLoading, Audio } from "@agney/react-loading";
 
 const cx = classNames.bind(styles);
 
 function Footer() {
   const dispatch = useDispatch();
-  const { loading, duration, infoSong } = useSelector((state) => state.playNow);
+
+  const { loading, duration, infoSong, currentSongId } = useSelector(
+    (state) => state.playNow
+  );
   const { playing, volume, loop, played } = useSelector(
     (state) => state.setting
   );
+
+  const { indicatorEl } = useLoading({
+    loading: true,
+    indicator: <Audio width="30" color="white" />,
+  });
 
   const handlePlayPause = () => {
     dispatch(setPlaying(!playing));
@@ -55,9 +64,18 @@ function Footer() {
       <div className={cx("player-control-left", "w-[40%] md:w-[30%]")}>
         <div className={cx("media")}>
           <div
-            className={cx("left", "w-[44px] h-[44px] md:w-[64px] md:h-[64px]")}
+            className={cx(
+              "left",
+              "w-[44px] h-[44px] md:w-[64px] md:h-[64px] relative"
+            )}
           >
             <img src={infoSong.thumbnailM} alt="" />
+            <span className="inset-center">
+              {!loading &&
+                playing &&
+                infoSong.encodeId === currentSongId &&
+                indicatorEl}
+            </span>
           </div>
           <div className={cx("center")}>
             <div className={cx("music")}>{infoSong.title}</div>

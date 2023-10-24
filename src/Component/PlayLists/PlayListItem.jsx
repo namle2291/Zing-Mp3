@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { MusicIcon, PlayIcon } from "../Icon/Icon";
@@ -15,7 +15,7 @@ import {
 import { toast } from "react-toastify";
 import { setPlaying } from "../../features/settingPlay/settingPlay";
 
-function PlayListItem({ data, hasIcon, liked }) {
+function PlayListItem({ data, hasIcon }) {
   const { loading, currentSongId } = useSelector((state) => state.playNow);
   const { playing } = useSelector((state) => state.setting);
 
@@ -27,12 +27,15 @@ function PlayListItem({ data, hasIcon, liked }) {
   const dispatch = useDispatch();
 
   const handlePlaySong = (item) => {
-    if (item.streamingStatus === 1) {
-      dispatch(playSong(item));
-      dispatch(fetchSong(item.encodeId));
-      dispatch(setPlaying(true));
+    if (item.encodeId !== currentSongId) {
+      dispatch(setPlaying(false));
+      if (item.streamingStatus === 1) {
+        dispatch(fetchSong(item.encodeId));
+      } else {
+        toast("Dành cho tài khoản Vip");
+      }
     } else {
-      toast("Dành cho tài khoản Vip");
+      dispatch(setPlaying(!playing));
     }
   };
 
@@ -53,7 +56,11 @@ function PlayListItem({ data, hasIcon, liked }) {
             className="w-[60px] h-[60px] rounded-md overflow-hidden mr-[10px] relative shrink-0 cursor-pointer"
             onClick={() => handlePlaySong(data)}
           >
-            <div className="absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 hidden group-hover:block"></div>
+            <div
+              className={`absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 group-hover:block ${
+                data.encodeId === currentSongId ? "block" : "hidden"
+              }`}
+            ></div>
             <img
               className="w-[100%] h-[100%] object-cover"
               src={data.thumbnailM}
@@ -69,10 +76,16 @@ function PlayListItem({ data, hasIcon, liked }) {
               ) : (
                 ""
               )}
-              {!loading && data.encodeId !== currentSongId && !loading && (
+              {!loading && data.encodeId !== currentSongId && <PlayIcon />}
+            </span>
+            <span className="inset-center">
+              {!loading && data.encodeId === currentSongId && !playing && (
                 <PlayIcon />
               )}
-                {!loading && data.encodeId === currentSongId && indicatorEl}
+              {!loading &&
+                playing &&
+                data.encodeId === currentSongId &&
+                indicatorEl}
             </span>
           </div>
           <div>

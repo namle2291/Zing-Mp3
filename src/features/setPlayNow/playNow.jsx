@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { httpRequest, tmdAPI } from "../../axios/axios-custom";
+import { httpRequest } from "../../axios/axios-custom";
 
 const initialState = JSON.parse(localStorage.getItem("play_now")) || {
   currentSongId: null,
@@ -52,6 +52,7 @@ const playNow = createSlice({
     builder.addCase(fetchSong.fulfilled, (state, action) => {
       state.loading = false;
       state.infoSong = action.payload.data;
+      state.currentSongId = state.infoSong.encodeId;
       localStorage.setItem("play_now", JSON.stringify(state));
     });
   },

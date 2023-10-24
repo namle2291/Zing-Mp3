@@ -19,14 +19,18 @@
     border-left: 3px solid var(--purple-primary) !important;
     color: var(--text-item-hover) !important;
   }
-  .table-no-border th, td{
+
+  .table-no-border th,
+  td {
     border: none;
   }
-  .table-active{
+
+  .table-active {
     background-color: hsla(0, 0%, 100%, .2) !important;
   }
-  .playlist-active{
-    background-color: hsla(0, 0%, 100%, .2) !important;
+
+  .playlist-active {
+    background: var(--alpha-bg);
   }
 }
 

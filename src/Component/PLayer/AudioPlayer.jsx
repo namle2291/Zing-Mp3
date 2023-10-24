@@ -9,9 +9,7 @@ import {
 import { useLayoutEffect } from "react";
 
 function AudioPlayer() {
-  const [source, setSouce] = useState("");
-
-  const { currentSongId } = useSelector((state) => state.playNow);
+  const { currentSongId, loading } = useSelector((state) => state.playNow);
 
   const { playing, volume, loop, currentTime } = useSelector(
     (state) => state.setting
@@ -22,22 +20,18 @@ function AudioPlayer() {
   const audioRef = useRef();
 
   useEffect(() => {
-    setSouce(
-      currentSongId
-        ? `http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/320`
-        : ""
-    );
-  }, [currentSongId]);
-
-  useEffect(() => {
     audioRef.current.seekTo(currentTime);
   }, [currentTime]);
+
+  useEffect(() => {
+    dispatch(setPlaying(true));
+  }, [!loading]);
 
   return (
     <ReactPlayer
       ref={audioRef}
       controls={false}
-      url={source}
+      url={`http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/320`}
       playing={playing}
       loop={loop}
       volume={volume}
