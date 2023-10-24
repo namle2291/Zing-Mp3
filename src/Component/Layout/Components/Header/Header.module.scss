@@ -1,0 +1,15 @@
+.wrapper {
+  background-color: var(--layout-bg);
+}
+.left-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  .icon {
+    color: var(--text-primary);
+    svg {
+      width: 25px;
+    }
+  }
+}
+

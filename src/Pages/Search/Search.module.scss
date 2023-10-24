@@ -1,0 +1,14 @@
+.tabs {
+  display: flex;
+  .tab-item {
+    padding: 16px 20px;
+    color: var(--navigation-text);
+    &.active {
+      color: var(--link-text-hover);
+      border-bottom: 3px solid var(--link-text-hover);
+    }
+  }
+}
+h4 {
+  color: var(--text-primary);
+}

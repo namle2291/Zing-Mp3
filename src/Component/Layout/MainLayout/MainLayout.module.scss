@@ -1,0 +1,10 @@
+.left-content {
+  height: calc(100vh - 90px);
+  background-color: var(--sidebar-bg);
+}
+
+@media screen and (max-width: 480px) {
+  .content {
+    padding: 0;
+  }
+}

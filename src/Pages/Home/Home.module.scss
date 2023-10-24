@@ -1,0 +1,41 @@
+.new-release {
+  .heading {
+    // margin-top: 48px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+  }
+  .tabs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    .tab-item {
+      width: 91px;
+      height: 24px;
+      border: 1px solid var(--border-primary);
+      color: var(--navigation-text);
+      text-transform: uppercase;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      &.active {
+        border: none;
+        color: var(--white);
+        background-color: var(--purple-primary);
+      }
+    }
+  }
+}
+
+.playlists {
+  .heading {
+    color: var(--text-primary);
+  }
+}
+
+.show-all {
+  color: var(--text-secondary);
+  &:hover {
+    color: var(--purple-primary);
+  }
+}

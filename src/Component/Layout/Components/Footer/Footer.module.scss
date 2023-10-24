@@ -1,0 +1,181 @@
+.wrapper {
+  width: 100%;
+  height: 90px;
+  padding: 14px 24px;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--layout-bg);
+  z-index: 99;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .player-control-left {
+    .media {
+      display: flex;
+      align-items: center;
+      .left {
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .center {
+        margin-left: 12px;
+        .music {
+          color: var(--player-text);
+          font-size: 14px;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          display: -webkit-box;
+          height: auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .name {
+          font-size: 12px;
+          color: var(--text-secondary);
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          display: -webkit-box;
+          height: auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .right {
+        margin-left: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        span {
+          text-align: center;
+          width: 36px;
+          height: 36px;
+          line-height: 36px;
+        }
+      }
+    }
+  }
+  .player-control-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40vw;
+    flex-grow: 1;
+    .top {
+      span {
+        color: var(--player-text);
+      }
+    }
+    .bottom {
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        font-size: 12px;
+        margin: 0;
+        color: var(--player-text);
+      }
+      .times {
+        width: 100%;
+        margin: 0 10px;
+        height: 3px;
+        background: var(--progressbar-player-bg);
+        cursor: pointer;
+        &:hover {
+          height: 6px;
+          border-radius: 5px;
+          .progress-bar {
+            height: 6px;
+            &::before {
+              visibility: visible;
+            }
+          }
+        }
+        .progress-bar {
+          width: 15%;
+          height: 3px;
+          background: var(--progressbar-active-bg);
+          position: relative;
+          &::before {
+            content: "";
+            visibility: hidden;
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 50%;
+            right: -calc(15px / 2);
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background: var(--progressbar-active-bg);
+          }
+        }
+      }
+    }
+  }
+  .player-control-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: end;
+    .volume {
+      align-items: center;
+      input {
+        background: linear-gradient(
+          90deg,
+          var(--progressbar-active-bg) 12%,
+          var(--progressbar-player-bg) 12%
+        );
+      }
+    }
+    .playlists {
+      border: 1px solid transparent;
+      border-radius: 4px;
+      margin-left: 1rem;
+      background-color: var(--sidebar-bg);
+    }
+    span {
+      width: 36px;
+      margin: 0 2px;
+      height: 36px;
+      color: var(--player-text);
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s ease-in;
+      &:hover {
+        background-color: var(--hover-tooltip-opacity);
+      }
+    }
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--text-primary);
+  height: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  margin-top: -6px;
+  cursor: pointer;
+  background-color: var(--purple-primary);
+}
