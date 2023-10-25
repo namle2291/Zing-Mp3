@@ -21,6 +21,7 @@ export const setting = createSlice({
     },
     setVolume: (state, action) => {
       state.volume = action.payload / 100;
+      state.isMute = state.volume === 0 ? true : false;
       localStorage.setItem("setting", JSON.stringify(state));
     },
     setRandom: (state, action) => {},

@@ -9,6 +9,7 @@ import {
   LiaReplySolid,
   LiaStepBackwardSolid,
   LiaStepForwardSolid,
+  LiaVolumeDownSolid,
   LiaVolumeOffSolid,
   LiaVolumeUpSolid,
   LiaYoutube,
@@ -168,7 +169,9 @@ function Footer() {
               dispatch(setIsMute());
             }}
           >
-            {isMute ? <LiaVolumeOffSolid /> : <LiaVolumeUpSolid />}
+            {isMute && <LiaVolumeOffSolid />}
+            {!isMute && volume > 0.5 && <LiaVolumeUpSolid />}
+            {!isMute && volume < 0.5 && <LiaVolumeDownSolid />}
           </span>
           <input
             value={volume * 100}
