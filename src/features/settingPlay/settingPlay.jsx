@@ -16,6 +16,7 @@ export const setting = createSlice({
   reducers: {
     setPlaying: (state, action) => {
       state.playing = action.payload;
+      localStorage.setItem("setting", JSON.stringify(state));
     },
     setVolume: (state, action) => {
       state.volume = action.payload / 100;

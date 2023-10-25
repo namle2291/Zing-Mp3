@@ -48,7 +48,7 @@ function Footer() {
 
   const { indicatorEl } = useLoading({
     loading: true,
-    indicator: <Audio width="30" color="white" />,
+    indicator: <Audio width="25" color="white" />,
   });
 
   const handlePlayPause = () => {
