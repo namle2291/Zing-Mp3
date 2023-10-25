@@ -6,7 +6,6 @@ let initialState = JSON.parse(localStorage.getItem("setting")) || {
   random: false,
   loop: false,
   autoplay: false,
-  currentTime: 0,
   isReady: false,
   played: 0,
 };
@@ -27,15 +26,11 @@ export const setting = createSlice({
       state.loop = action.payload;
       localStorage.setItem("setting", JSON.stringify(state));
     },
-    setCurrentTime: (state, action) => {
-      state.currentTime = action.payload;
-      localStorage.setItem("setting", JSON.stringify(state));
-    },
     setPlayed: (state, action) => {
       state.played = action.payload;
       localStorage.setItem("setting", JSON.stringify(state));
     },
-    setIsReady: (state, action) => {
+    setReady: (state, action) => {
       state.isReady = action.payload;
       localStorage.setItem("setting", JSON.stringify(state));
     },
@@ -47,8 +42,7 @@ export const {
   setVolume,
   setRandom,
   setLoop,
-  setCurrentTime,
-  setIsReady,
+  setReady,
   setPlayed,
 } = setting.actions;
 

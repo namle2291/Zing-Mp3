@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { MusicIcon, PlayIcon } from "../Icon/Icon";
@@ -10,14 +10,15 @@ import {
   fetchSong,
   playSong,
   setFavouriteSong,
+  setCurrentTime,
 } from "../../features/setPlayNow/playNow";
 
 import { toast } from "react-toastify";
-import { setPlaying } from "../../features/settingPlay/settingPlay";
+import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 
 function PlayListItem({ data, hasIcon }) {
-  const { loading, currentSongId } = useSelector((state) => state.playNow);
-  const { playing } = useSelector((state) => state.setting);
+  const { currentSongId } = useSelector((state) => state.playNow);
+  const { playing, isReady } = useSelector((state) => state.setting);
 
   const { indicatorEl } = useLoading({
     loading: true,
@@ -26,15 +27,20 @@ function PlayListItem({ data, hasIcon }) {
 
   const dispatch = useDispatch();
 
-  const handlePlaySong = (item) => {
+  let active = data.encodeId === currentSongId;
+  let isVip = data.streamingStatus === 2 ? true : false;
+
+  const fetchSong = (item) => {
     if (item.encodeId !== currentSongId) {
-      dispatch(setPlaying(false));
       if (item.streamingStatus === 1) {
-        dispatch(fetchSong(item.encodeId));
+        dispatch(setReady(false));
+        dispatch(setPlaying(false));
+        dispatch(playSong(item));
+        dispatch(setPlaying(true));
       } else {
         toast("Dành cho tài khoản Vip");
       }
-    } else {
+    } else if (item.encodeId === currentSongId) {
       dispatch(setPlaying(!playing));
     }
   };
@@ -42,7 +48,7 @@ function PlayListItem({ data, hasIcon }) {
   return (
     <div
       className={`flex p-2 group hover:play-list-hover justify-between rounded-md ${
-        data.encodeId === currentSongId ? "playlist-active" : ""
+        active ? "playlist-active" : ""
       }`}
     >
       <div className="flex align-items-center">
@@ -54,38 +60,31 @@ function PlayListItem({ data, hasIcon }) {
         <div className="flex">
           <div
             className="w-[60px] h-[60px] rounded-md overflow-hidden mr-[10px] relative shrink-0 cursor-pointer"
-            onClick={() => handlePlaySong(data)}
+            onClick={() => fetchSong(data)}
           >
             <div
               className={`absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 group-hover:block ${
-                data.encodeId === currentSongId ? "block" : "hidden"
+                active ? "block" : "hidden"
               }`}
             ></div>
             <img
               className="w-[100%] h-[100%] object-cover"
               src={data.thumbnailM}
-              alt=""
+              alt={data.title}
             />
             <span className="inset-center hidden group-hover:block">
-              {loading && data.encodeId === currentSongId ? (
+              {!active && <PlayIcon />}
+            </span>
+            <span className="inset-center">
+              {!isReady && active && (
                 <img
                   className="w-[20px]"
                   src="https://i.gifer.com/ZZ5H.gif"
                   alt=""
                 />
-              ) : (
-                ""
               )}
-              {!loading && data.encodeId !== currentSongId && <PlayIcon />}
-            </span>
-            <span className="inset-center">
-              {!loading && data.encodeId === currentSongId && !playing && (
-                <PlayIcon />
-              )}
-              {!loading &&
-                playing &&
-                data.encodeId === currentSongId &&
-                indicatorEl}
+              {active && !playing && <PlayIcon />}
+              {playing && active && isReady && indicatorEl}
             </span>
           </div>
           <div>
@@ -94,7 +93,7 @@ function PlayListItem({ data, hasIcon }) {
               style={{ color: "var(--player-text)" }}
             >
               {data.title}
-              {data.streamingStatus === 2 && (
+              {isVip && (
                 <span className="ml-2 bg-yellow-400 text-white text-[12px] px-2 py-[2px] rounded-[3px] font-semibold">
                   Vip
                 </span>

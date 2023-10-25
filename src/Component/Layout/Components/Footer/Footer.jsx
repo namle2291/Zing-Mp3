@@ -19,9 +19,9 @@ import LoadingCircle from "../../../Loading/LoadingCircle";
 import { BiHeart } from "react-icons/bi";
 
 import formatTimes from "../../../../utils/formatTimes";
+import { useLoading, Audio } from "@agney/react-loading";
 
 import {
-  setCurrentTime,
   setLoop,
   setPlaying,
   setVolume,
@@ -30,18 +30,19 @@ import {
 import classNames from "classnames/bind";
 import styles from "./Footer.module.scss";
 import AudioPlayer from "../../../PLayer/AudioPlayer";
-import { setFavouriteSong } from "../../../../features/setPlayNow/playNow";
-import { useLoading, Audio } from "@agney/react-loading";
+
+import {
+  setFavouriteSong,
+  setCurrentTime,
+} from "../../../../features/setPlayNow/playNow";
 
 const cx = classNames.bind(styles);
 
 function Footer() {
   const dispatch = useDispatch();
 
-  const { loading, duration, infoSong, currentSongId } = useSelector(
-    (state) => state.playNow
-  );
-  const { playing, volume, loop, played } = useSelector(
+  const { duration, infoSong } = useSelector((state) => state.playNow);
+  const { playing, volume, loop, played, isReady } = useSelector(
     (state) => state.setting
   );
 
@@ -70,12 +71,7 @@ function Footer() {
             )}
           >
             <img src={infoSong.thumbnailM} alt="" />
-            <span className="inset-center">
-              {!loading &&
-                playing &&
-                infoSong.encodeId === currentSongId &&
-                indicatorEl}
-            </span>
+            <span className="inset-center">{playing && indicatorEl}</span>
           </div>
           <div className={cx("center")}>
             <div className={cx("music")}>{infoSong.title}</div>
@@ -111,10 +107,10 @@ function Footer() {
               "flex align-items-center px-[5px] text-[30px]"
             )}
           >
-            {loading && <LoadingCircle />}
+            {!isReady && <LoadingCircle />}
             <span onClick={handlePlayPause} className="cursor-pointer">
-              {!loading && !playing && <SlControlPlay />}
-              {!loading && playing && <SlControlPause />}
+              {!playing && <SlControlPlay />}
+              {playing && isReady && <SlControlPause />}
             </span>
           </span>
           <span className="flex align-items-center p-[10px] text-[25px]">

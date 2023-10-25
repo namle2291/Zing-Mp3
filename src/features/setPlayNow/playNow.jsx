@@ -1,24 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { httpRequest } from "../../axios/axios-custom";
 
 const initialState = JSON.parse(localStorage.getItem("play_now")) || {
   currentSongId: null,
   loading: false,
+  currentTime: 0,
   duration: 0,
   listSong: [],
   infoSong: {},
   favouriteSongs: [],
   lyrics: {},
 };
-
-export const fetchSong = createAsyncThunk(
-  "playNow/fetchSong",
-  async (encodeId) => {
-    const res = await httpRequest.get(`infosong?id=${encodeId}`);
-    return res.data;
-  }
-);
 
 const playNow = createSlice({
   name: "playNow",
@@ -27,7 +19,12 @@ const playNow = createSlice({
     playSong: (state, { payload }) => {
       state.infoSong = payload;
       state.currentSongId = payload.encodeId;
+      state.currentTime = 0;
       state.duration = payload.duration;
+      localStorage.setItem("play_now", JSON.stringify(state));
+    },
+    setCurrentTime: (state, action) => {
+      state.currentTime = action.payload;
       localStorage.setItem("play_now", JSON.stringify(state));
     },
     setFavouriteSong: (state, action) => {
@@ -42,22 +39,8 @@ const playNow = createSlice({
       localStorage.setItem("play_now", JSON.stringify(state));
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchSong.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchSong.rejected, (state) => {
-      state.loading = false;
-    });
-    builder.addCase(fetchSong.fulfilled, (state, action) => {
-      state.loading = false;
-      state.infoSong = action.payload.data;
-      state.currentSongId = state.infoSong.encodeId;
-      localStorage.setItem("play_now", JSON.stringify(state));
-    });
-  },
 });
 
-export const { playSong, setFavouriteSong } = playNow.actions;
+export const { playSong, setFavouriteSong, setCurrentTime } = playNow.actions;
 
 export default playNow.reducer;

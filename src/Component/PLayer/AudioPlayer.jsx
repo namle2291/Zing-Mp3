@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setCurrentTime,
   setPlayed,
   setPlaying,
+  setReady,
 } from "../../features/settingPlay/settingPlay";
-import { useLayoutEffect } from "react";
 
 function AudioPlayer() {
-  const { currentSongId, loading } = useSelector((state) => state.playNow);
+  const { currentSongId, currentTime } = useSelector((state) => state.playNow);
 
-  const { playing, volume, loop, currentTime } = useSelector(
-    (state) => state.setting
-  );
+  const { playing, volume, loop } = useSelector((state) => state.setting);
 
   const dispatch = useDispatch();
 
@@ -22,10 +19,6 @@ function AudioPlayer() {
   useEffect(() => {
     audioRef.current.seekTo(currentTime);
   }, [currentTime]);
-
-  useEffect(() => {
-    dispatch(setPlaying(true));
-  }, [!loading]);
 
   return (
     <ReactPlayer
@@ -40,6 +33,9 @@ function AudioPlayer() {
       }}
       onEnded={() => {
         dispatch(setPlaying(false));
+      }}
+      onReady={() => {
+        dispatch(setReady(true));
       }}
     />
   );
