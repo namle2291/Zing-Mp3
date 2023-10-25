@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 
 import Header from "../Components/Header/Header";
 import SideBar from "../Components/SideBar/SideBar";
@@ -40,4 +40,4 @@ function MainLayout({ children }) {
   );
 }
 
-export default MainLayout;
+export default memo(MainLayout);

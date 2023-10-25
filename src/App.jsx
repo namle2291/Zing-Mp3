@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { memo, useEffect, useLayoutEffect } from "react";
 
 import { routes } from "./Routes/Routes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -105,4 +105,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(App);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { SlUserFollow } from "react-icons/sl";
 
 import { Link } from "react-router-dom";
@@ -7,14 +7,20 @@ function ArtistItem({ data }) {
   return (
     <div>
       <div className="overflow-hidden rounded-full">
-        <img
-          className="w-[100%] h-[100%] object-cover"
-          src={data.thumbnailM}
-          alt={data.title}
-        />
+        <Link to={`/artist${data.link}`}>
+          <img
+            className="w-[100%] h-[100%] object-cover"
+            src={data.thumbnailM}
+            alt={data.title}
+          />
+        </Link>
       </div>
       <div className="text-center mt-[12px]">
-        <Link className="" style={{ color: "var(--player-text)" }}>
+        <Link
+          to={`/artist${data.link}`}
+          className=""
+          style={{ color: "var(--player-text)" }}
+        >
           {data.name}
         </Link>
         <div className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
@@ -35,4 +41,4 @@ function ArtistItem({ data }) {
   );
 }
 
-export default ArtistItem;
+export default memo(ArtistItem);

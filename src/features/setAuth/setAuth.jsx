@@ -38,6 +38,10 @@ const auth = createSlice({
       state.token = action.payload;
       localStorage.setItem("token", JSON.stringify(state.token));
     },
+    clearData: (state) => {
+      state.email = "";
+      state.password = "";
+    },
     userLogout: (state) => {
       state.token = "";
       state.userInfo = {};
@@ -62,7 +66,13 @@ const auth = createSlice({
   },
 });
 
-export const { setEmail, setPassword, setInfo, setToken, userLogout } =
-  auth.actions;
+export const {
+  setEmail,
+  setPassword,
+  setInfo,
+  setToken,
+  userLogout,
+  clearData,
+} = auth.actions;
 
 export default auth.reducer;

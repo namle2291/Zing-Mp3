@@ -1,21 +1,24 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   LiaListAltSolid,
   LiaMicrophoneAltSolid,
-  LiaRandomSolid,
-  LiaReplySolid,
-  LiaStepBackwardSolid,
-  LiaStepForwardSolid,
-  LiaVolumeDownSolid,
-  LiaVolumeOffSolid,
-  LiaVolumeUpSolid,
   LiaYoutube,
 } from "react-icons/lia";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { SlControlPlay, SlControlPause } from "react-icons/sl";
+import {
+  MdOutlineLoop,
+  MdPauseCircleOutline,
+  MdPlayCircleOutline,
+  MdShuffle,
+  MdSkipNext,
+  MdSkipPrevious,
+  MdVolumeDown,
+  MdVolumeOff,
+  MdVolumeUp,
+} from "react-icons/md";
 import LoadingCircle from "../../../Loading/LoadingCircle";
 
 import { BiHeart } from "react-icons/bi";
@@ -78,7 +81,16 @@ function Footer() {
           </div>
           <div className={cx("center")}>
             <div className={cx("music")}>{infoSong.title}</div>
-            <div className={cx("name")}>{infoSong.artistsNames}</div>
+            <div className={cx("name")}>
+              {infoSong.artists.map((item, index) => (
+                <Link to={`/artist/${item.alias}`} key={index}>
+                  {index > 0 ? ", " : ""}
+                  <span className="text-[var(--text-secondary)] hover:underline">
+                    {item.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
           <div className={cx("right")}>
             <span
@@ -97,43 +109,39 @@ function Footer() {
       </div>
       {/* Center */}
       <div className={cx("player-control-center", "")}>
-        <div className={cx("top", "flex align-items-center gap-[10px]")}>
-          <span className="hidden lg:flex p-[10px] text-[25px]">
-            <LiaRandomSolid />
+        <div className={cx("top", "flex align-items-center gap-[25px]")}>
+          <span className="hidden lg:flex text-[25px]">
+            <MdShuffle />
           </span>
-          <span className="flex align-items-center p-[10px] text-[25px]">
-            <LiaStepBackwardSolid />
+          <span className="flex align-items-center text-[25px]">
+            <MdSkipPrevious />
           </span>
           <span
             className={cx(
-              "play-pause",
-              "flex align-items-center px-[5px] text-[30px]"
+              "flex align-items-center text-[35px] h-[50px] cursor-pointer"
             )}
           >
             {!isReady && <LoadingCircle />}
-            <span onClick={handlePlayPause} className="cursor-pointer">
-              {!playing && <SlControlPlay />}
-              {playing && isReady && <SlControlPause />}
+            <span onClick={handlePlayPause} className="">
+              {!playing && isReady && <MdPlayCircleOutline />}
+              {isReady && playing && <MdPauseCircleOutline />}
             </span>
           </span>
-          <span className="flex align-items-center p-[10px] text-[25px]">
-            <LiaStepForwardSolid />
+          <span className="flex align-items-center text-[25px]">
+            <MdSkipNext />
           </span>
           <span
-            className="hidden lg:flex p-[10px] text-[25px] cursor-pointer"
+            className="hidden lg:flex text-[25px] cursor-pointer"
             style={loop ? { color: "var(--link-text-hover)" } : {}}
             onClick={() => {
               dispatch(setLoop(!loop));
             }}
           >
-            <LiaReplySolid />
+            <MdOutlineLoop />
           </span>
         </div>
         <div className={cx("bottom", "hidden md:flex")}>
           <p>{formatTimes(played)}</p>
-          {/* <div className={cx("times")}>
-              <div className={cx("progress-bar")}></div>
-            </div> */}
           <input
             value={played}
             type="range"
@@ -169,9 +177,9 @@ function Footer() {
               dispatch(setIsMute());
             }}
           >
-            {isMute && <LiaVolumeOffSolid />}
-            {!isMute && volume > 0.5 && <LiaVolumeUpSolid />}
-            {!isMute && volume < 0.5 && <LiaVolumeDownSolid />}
+            {isMute && <MdVolumeOff />}
+            {!isMute && volume > 0.5 && <MdVolumeUp />}
+            {!isMute && volume < 0.5 && <MdVolumeDown />}
           </span>
           <input
             value={volume * 100}
@@ -192,4 +200,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

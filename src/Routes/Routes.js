@@ -1,5 +1,6 @@
 import MainLayout from "../Component/Layout/MainLayout/MainLayout";
 import Album from "../Pages/Album/Album";
+import Artist from "../Pages/Artist/Artist";
 import Info from "../Pages/Auth/Info";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
@@ -53,6 +54,11 @@ const routes = [
   {
     path: "/album/:id",
     element: Album,
+    layout: MainLayout,
+  },
+  {
+    path: "/artist/:name",
+    element: Artist,
     layout: MainLayout,
   },
   {

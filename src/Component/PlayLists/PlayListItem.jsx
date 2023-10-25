@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { MusicIcon, PlayIcon } from "../Icon/Icon";
@@ -15,8 +15,9 @@ import {
 
 import { toast } from "react-toastify";
 import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
+import LoadingCircle from "../Loading/LoadingCircle";
 
-function PlayListItem({ data, hasIcon }) {
+function PlayListItem({ data, hasIcon, hasLike = true }) {
   const { currentSongId } = useSelector((state) => state.playNow);
   const { playing, isReady } = useSelector((state) => state.setting);
 
@@ -31,15 +32,15 @@ function PlayListItem({ data, hasIcon }) {
   let isVip = data.streamingStatus === 2 ? true : false;
 
   const fetchSong = (item) => {
+    if (item.streamingStatus === 2) {
+      toast("Dành cho tài khoản Vip");
+      return;
+    }
     if (item.encodeId !== currentSongId) {
-      if (item.streamingStatus === 1) {
-        dispatch(setReady(false));
-        dispatch(setPlaying(false));
-        dispatch(playSong(item));
-        dispatch(setPlaying(true));
-      } else {
-        toast("Dành cho tài khoản Vip");
-      }
+      dispatch(setPlaying(false));
+      dispatch(setReady(false));
+      dispatch(playSong(item));
+      dispatch(setPlaying(true));
     } else if (item.encodeId === currentSongId) {
       dispatch(setPlaying(!playing));
     }
@@ -76,14 +77,8 @@ function PlayListItem({ data, hasIcon }) {
               {!active && <PlayIcon />}
             </span>
             <span className="inset-center">
-              {!isReady && active && (
-                <img
-                  className="w-[20px]"
-                  src="https://i.gifer.com/ZZ5H.gif"
-                  alt=""
-                />
-              )}
-              {active && !playing && <PlayIcon />}
+              {!isReady && active && <LoadingCircle />}
+              {!playing && active && <PlayIcon />}
               {playing && active && isReady && indicatorEl}
             </span>
           </div>
@@ -99,16 +94,24 @@ function PlayListItem({ data, hasIcon }) {
                 </span>
               )}
             </h6>
-            <Link
-              className="text-xs line-clamp-1 text-[14px]"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {data.artistsNames}
-            </Link>
+            <div className="text-xs line-clamp-1 text-[14px] mt-1">
+              {data.artists.map((item, index) => (
+                <Link to={`/artist/${item.alias}`} key={index}>
+                  {index > 0 ? ", " : ""}
+                  <span className="text-[var(--text-secondary)] hover:underline">
+                    {item.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-      <div className="align-items-center gap-2 hidden group-hover:flex">
+      <div
+        className={`align-items-center hidden gap-2 ${
+          hasLike ? "flex" : "hidden"
+        } group-hover:${hasLike ? "flex" : "hidden"}`}
+      >
         <span
           className="w-[24px] h-[24px] cursor-pointer text-white"
           onClick={() => {
@@ -125,4 +128,4 @@ function PlayListItem({ data, hasIcon }) {
   );
 }
 
-export default PlayListItem;
+export default memo(PlayListItem);

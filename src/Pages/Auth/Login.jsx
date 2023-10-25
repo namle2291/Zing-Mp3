@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearData,
   fetchAuth,
   setEmail,
   setPassword,
@@ -8,7 +9,7 @@ import {
 
 import LoadingCircle from "../../Component/Loading/LoadingCircle";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -31,8 +32,9 @@ export default function Login() {
         })
       );
     } else {
-      toast.warn("Email hoặc mật khẩu không được bỏ trống!");
+      toast.warn("tài khoản hoặc mật khẩu không bỏ trống!");
     }
+    dispatch(clearData());
   };
 
   useEffect(() => {
@@ -73,13 +75,16 @@ export default function Login() {
         />
       </div>
       <div
-        className="text-center py-2 cursor-pointer hover:bg-[var(--alpha-bg)] bg-[var(--layout-bg)]"
+        className="text-center mt-3 py-2 cursor-pointer hover:bg-[var(--alpha-bg)] bg-[var(--layout-bg)]"
         onClick={handleSubmit}
       >
         <button className="text-[14px] text-[var(--text-primary)]">
           {loading && <LoadingCircle />}
           {!loading && "Đăng nhập"}
         </button>
+      </div>
+      <div className="text-center text-[13px] text-[var(--text-primary)]">
+        Chưa có tài khoản? <Link to={"/register"}>Đăng ký</Link>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Tippy from "@tippyjs/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { LeftIcon, RightIcon } from "../../../Icon/Icon";
 
@@ -17,6 +17,7 @@ const cx = classNames.bind(styles);
 
 function Header() {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const { userInfo, token } = useSelector((state) => state.auth);
 
@@ -24,6 +25,11 @@ function Header() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleLogout = () => {
+    dispatch(userLogout());
+    navigate("/");
+  };
 
   return (
     <>
@@ -86,7 +92,7 @@ function Header() {
                         <button
                           className="block hover:bg-[var(--alpha-bg)] text-start px-3 py-2 w-full"
                           style={{ color: "var(--white)" }}
-                          onClick={() => dispatch(userLogout())}
+                          onClick={handleLogout}
                         >
                           Đăng xuất
                         </button>
@@ -116,7 +122,9 @@ function Header() {
                   <img
                     className="w-[100%] h-[100%] object-cover"
                     src={`${
-                      token
+                      token &&
+                      userInfo.avatar !==
+                        "https://files.fullstack.edu.vn/f8-tiktok/"
                         ? userInfo.avatar
                         : "https://avatar.talk.zdn.vn/default"
                     }`}

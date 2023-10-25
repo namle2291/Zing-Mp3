@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -44,4 +44,4 @@ function AudioPlayer() {
   );
 }
 
-export default AudioPlayer;
+export default memo(AudioPlayer);
