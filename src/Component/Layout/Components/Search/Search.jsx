@@ -20,7 +20,7 @@ function Search() {
   };
   return (
     <div className={cx("wrapper")}>
-      <span>
+      <span className="text-[var(--text-primary)]">
         <SearchIcon />
       </span>
       <input

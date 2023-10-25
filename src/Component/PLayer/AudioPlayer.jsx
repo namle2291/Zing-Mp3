@@ -10,7 +10,9 @@ import {
 function AudioPlayer() {
   const { currentSongId, currentTime } = useSelector((state) => state.playNow);
 
-  const { playing, volume, loop } = useSelector((state) => state.setting);
+  const { playing, volume, loop, isMute } = useSelector(
+    (state) => state.setting
+  );
 
   const dispatch = useDispatch();
 
@@ -26,6 +28,7 @@ function AudioPlayer() {
       controls={false}
       url={`http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/320`}
       playing={playing}
+      muted={isMute}
       loop={loop}
       volume={volume}
       onProgress={(e) => {

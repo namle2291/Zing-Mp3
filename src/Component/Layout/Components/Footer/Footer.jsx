@@ -9,6 +9,7 @@ import {
   LiaReplySolid,
   LiaStepBackwardSolid,
   LiaStepForwardSolid,
+  LiaVolumeOffSolid,
   LiaVolumeUpSolid,
   LiaYoutube,
 } from "react-icons/lia";
@@ -22,6 +23,7 @@ import formatTimes from "../../../../utils/formatTimes";
 import { useLoading, Audio } from "@agney/react-loading";
 
 import {
+  setIsMute,
   setLoop,
   setPlaying,
   setVolume,
@@ -42,7 +44,7 @@ function Footer() {
   const dispatch = useDispatch();
 
   const { duration, infoSong } = useSelector((state) => state.playNow);
-  const { playing, volume, loop, played, isReady } = useSelector(
+  const { playing, volume, loop, played, isReady, isMute } = useSelector(
     (state) => state.setting
   );
 
@@ -160,8 +162,13 @@ function Footer() {
           </span>
         </div>
         <div className={cx("volume", "hidden md:flex")}>
-          <span className="hidden md:block rounded-full">
-            <LiaVolumeUpSolid />
+          <span
+            className="hidden md:block rounded-full"
+            onClick={() => {
+              dispatch(setIsMute());
+            }}
+          >
+            {isMute ? <LiaVolumeOffSolid /> : <LiaVolumeUpSolid />}
           </span>
           <input
             value={volume * 100}
