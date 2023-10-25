@@ -122,7 +122,7 @@ function Header() {
                   <img
                     className="w-[100%] h-[100%] object-cover"
                     src={`${
-                      token &&
+                      userInfo &&
                       userInfo.avatar !==
                         "https://files.fullstack.edu.vn/f8-tiktok/"
                         ? userInfo.avatar

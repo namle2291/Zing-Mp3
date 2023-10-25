@@ -38,7 +38,6 @@ function PlayListItem({ data, hasIcon, hasLike = true }) {
     }
     if (item.encodeId !== currentSongId) {
       dispatch(setPlaying(false));
-      dispatch(setReady(false));
       dispatch(playSong(item));
       dispatch(setPlaying(true));
     } else if (item.encodeId === currentSongId) {
@@ -58,7 +57,7 @@ function PlayListItem({ data, hasIcon, hasLike = true }) {
             <MusicIcon />
           </span>
         )}
-        <div className="flex">
+        <div className="flex items-center">
           <div
             className="w-[60px] h-[60px] rounded-md overflow-hidden mr-[10px] relative shrink-0 cursor-pointer"
             onClick={() => fetchSong(data)}
@@ -95,14 +94,15 @@ function PlayListItem({ data, hasIcon, hasLike = true }) {
               )}
             </h6>
             <div className="text-xs line-clamp-1 text-[14px] mt-1">
-              {data.artists.map((item, index) => (
-                <Link to={`/artist/${item.alias}`} key={index}>
-                  {index > 0 ? ", " : ""}
-                  <span className="text-[var(--text-secondary)] hover:underline">
-                    {item.name}
-                  </span>
-                </Link>
-              ))}
+              {data.artists &&
+                data.artists.map((item, index) => (
+                  <Link to={`/artist/${item.alias}`} key={index}>
+                    {index > 0 ? ", " : ""}
+                    <span className="text-[var(--text-secondary)] hover:underline">
+                      {item.name}
+                    </span>
+                  </Link>
+                ))}
             </div>
           </div>
         </div>

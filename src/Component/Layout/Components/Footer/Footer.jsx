@@ -41,6 +41,7 @@ import {
   setFavouriteSong,
   setCurrentTime,
 } from "../../../../features/setPlayNow/playNow";
+import Tippy from "@tippyjs/react/headless";
 
 const cx = classNames.bind(styles);
 
@@ -160,35 +161,36 @@ function Footer() {
       </div>
       {/* Right */}
       <div className={cx("player-control-right", "w-[15%] md:w-[30%]")}>
-        <Link className={cx("mv", "hidden md:block")}>
-          <span className="rounded-full">
-            <LiaYoutube />
-          </span>
-        </Link>
-        <div className={cx("karaoke", "hidden md:block")}>
-          <span className="rounded-full">
-            <LiaMicrophoneAltSolid />
-          </span>
-        </div>
-        <div className={cx("volume", "hidden md:flex")}>
-          <span
-            className="hidden md:block rounded-full"
-            onClick={() => {
-              dispatch(setIsMute());
-            }}
-          >
-            {isMute && <MdVolumeOff />}
-            {!isMute && volume > 0.5 && <MdVolumeUp />}
-            {!isMute && volume < 0.5 && <MdVolumeDown />}
-          </span>
-          <input
-            value={volume * 100}
-            onChange={(e) => dispatch(setVolume(e.target.value))}
-            className="hidden xl:block"
-            type="range"
-            min="0"
-            max="100"
-          />
+        <div className="hidden lg:flex">
+          <Link className={cx("mv")}>
+            <span className="rounded-full">
+              <LiaYoutube />
+            </span>
+          </Link>
+          <div className={cx("karaoke")}>
+            <span className="rounded-full">
+              <LiaMicrophoneAltSolid />
+            </span>
+          </div>
+          <div className={cx("volume", "flex")}>
+            <span
+              className="rounded-full"
+              onClick={() => {
+                dispatch(setIsMute());
+              }}
+            >
+              {isMute && <MdVolumeOff />}
+              {!isMute && volume > 0.5 && <MdVolumeUp />}
+              {!isMute && volume < 0.5 && <MdVolumeDown />}
+            </span>
+            <input
+              value={volume * 100}
+              onChange={(e) => dispatch(setVolume(e.target.value))}
+              type="range"
+              min="0"
+              max="100"
+            />
+          </div>
         </div>
         <div className={cx("playlists")}>
           <span className="rounded-md">

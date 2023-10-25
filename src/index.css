@@ -32,6 +32,26 @@
   .playlist-active {
     background: var(--alpha-bg);
   }
+
+  .text-gradient {
+    background: radial-gradient(50% 124.93% at 95.86% -10%, #3efad9 0, hsla(0, 0%, 100%, 0) 100%), linear-gradient(91.56deg, #ff9357 1.54%, #9100ff 98.71%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-stroke1 {
+    -webkit-text-stroke: 1px #60a5fa;
+  }
+
+  .text-stroke2 {
+    -webkit-text-stroke: 1px #4ade80;
+  }
+
+  .text-stroke3 {
+    -webkit-text-stroke: 1px #f87171;
+    font-family: Roboto, sans-serif;
+  }
 }
 
 @layer utilities {

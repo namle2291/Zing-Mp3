@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,6 +14,8 @@ function AudioPlayer() {
     (state) => state.setting
   );
 
+  const [isReady, setIsReady] = useState(false);
+
   const dispatch = useDispatch();
 
   const audioRef = useRef();
@@ -21,6 +23,15 @@ function AudioPlayer() {
   useEffect(() => {
     audioRef.current.seekTo(currentTime);
   }, [currentTime]);
+
+  const onReady = useCallback(() => {
+    if (!isReady) {
+      if (audioRef.current) {
+        audioRef?.current?.seekTo(currentTime, "seconds");
+      }
+      setIsReady(true);
+    }
+  }, [isReady]);
 
   return (
     <ReactPlayer
@@ -37,9 +48,7 @@ function AudioPlayer() {
       onEnded={() => {
         dispatch(setPlaying(false));
       }}
-      onReady={() => {
-        dispatch(setReady(true));
-      }}
+      onReady={onReady}
     />
   );
 }

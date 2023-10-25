@@ -111,7 +111,6 @@ function Artist() {
                 )}
               </div>
             ))}
-          {/* {console.log(data.sections)} */}
         </>
       )}
     </>

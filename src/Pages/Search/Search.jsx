@@ -103,7 +103,7 @@ function Search() {
           <h4 className={cx("mb-3")}>Bài hát</h4>
           <div className="grid grid-cols-1 sm:grid-cols-2">
             {datas.songs &&
-              datas.songs.map((item, index) => (
+              datas.songs.slice(0, 5).map((item, index) => (
                 <div key={index}>
                   <PlayListItem data={item} />
                 </div>
@@ -115,7 +115,7 @@ function Search() {
           <h4 className={cx("mb-3")}>PlayList/Album</h4>
           <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
             {datas.playlists &&
-              datas.playlists.map((item, index) => (
+              datas.playlists.slice(0, 5).map((item, index) => (
                 <div key={index}>
                   <AlbumItem data={item} />
                 </div>
@@ -127,7 +127,7 @@ function Search() {
           <h4 className="mb-3">MV</h4>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {datas.videos &&
-              datas.videos.map((item, index) => (
+              datas.videos.slice(0, 3).map((item, index) => (
                 <div key={index}>
                   <MVItem data={item} />
                 </div>
@@ -139,7 +139,7 @@ function Search() {
           <h4 className={cx("mb-3")}>Nghệ Sĩ/OA</h4>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {datas.artists &&
-              datas.artists.map((item, index) => (
+              datas.artists.slice(0, 5).map((item, index) => (
                 <div key={index}>
                   <ArtistItem data={item} />
                 </div>
