@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 function SideBarItem({ data, mobile }) {
   const location = useLocation();
 
-  const { icon, label, to, active } = data;
+  const { icon, label, to } = data;
 
   let Comp = null;
 
@@ -17,12 +17,13 @@ function SideBarItem({ data, mobile }) {
   return (
     <Comp to={to}>
       <div
-        className={`${
+        className={`flex align-items-center gap-2 border-l-4  ${
           !mobile ? "px-[26px] py-[8px]" : "py-[16px]"
-        } flex align-items-center gap-2 ${
-          location.pathname === to ? "side-bar-active" : ""
-        }`}
-        style={{ color: "var(--navigation-text)" }}
+        }  ${location.pathname === to ? "side-bar-active" : ""}`}
+        style={{
+          color: "var(--navigation-text)",
+          borderLeft: "3px solid transparent",
+        }}
       >
         <span className={`${mobile ? "mx-auto" : ""}`}>{icon}</span>
         {!mobile && <span>{label}</span>}

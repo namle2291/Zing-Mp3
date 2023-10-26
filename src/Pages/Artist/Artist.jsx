@@ -68,7 +68,7 @@ function Artist() {
               <div key={index} className="mb-3">
                 <h4 className="text-[var(--text-primary)]">{section.title}</h4>
                 {section.sectionType === "song" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-h-[300px] overflow-y-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-h-[300px] overflow-y-auto gap-3">
                     {section?.items.map((item, index) => (
                       <div key={index}>
                         <PlayListItem data={item} />

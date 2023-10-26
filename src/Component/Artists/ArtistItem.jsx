@@ -7,7 +7,7 @@ function ArtistItem({ data }) {
   return (
     <div>
       <div className="overflow-hidden rounded-full">
-        <Link to={`/artist${data.link}`}>
+        <Link to={`/artist/${data.alias}`}>
           <img
             className="w-[100%] h-[100%] object-cover"
             src={data.thumbnailM}
@@ -17,7 +17,7 @@ function ArtistItem({ data }) {
       </div>
       <div className="text-center mt-[12px]">
         <Link
-          to={`/artist${data.link}`}
+          to={`/artist/${data.alias}`}
           className=""
           style={{ color: "var(--player-text)" }}
         >

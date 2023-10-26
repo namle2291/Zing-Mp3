@@ -50,20 +50,19 @@ function Home() {
     <>
       {datas.length > 0 &&
         datas.map((dt, index) => (
-          <div key={index} className="mb-3">
-            {dt?.title && dt?.items && <h4>{dt?.title}</h4>}
+          <div key={index} className="mb-4">
+            {dt?.title && dt?.items && <h4 className="mb-3">{dt?.title}</h4>}
             {/* Mới phát hành */}
             {dt?.sectionType === "new-release" && (
               <div>
-                <div className={cx("tabs")}>
+                <div className="flex gap-3 mb-2">
                   {tabs &&
                     tabs.map((item) => (
                       <button
                         key={item.id}
-                        className={cx(
-                          "tab-item",
-                          item.value === tab ? "active" : ""
-                        )}
+                        className={`text-[var(--text-primary)] text-[13px] rounded-full px-3 py-1 ${
+                          item.value === tab ? "bg-[var(--purple-primary)]" : ""
+                        }`}
                         onClick={() => setTab(item.value)}
                       >
                         {item.title}
@@ -120,19 +119,41 @@ function Home() {
             )}
             {/* Chart  */}
             {dt?.sectionType === "RTChart" && (
-              <div className="bg-purple-900 px-3 py-2 rounded-lg">
+              <div className="py-4 rounded-lg">
                 <div className="flex">
                   <a className="text-[28px] font-bold text-gradient" href="/">
                     #zingchart
                   </a>
                 </div>
-                <div className="grid grid-cols-12 gap-3">
-                  <div className="col-span-5">
+                <div className="flex gap-3 flex-col lg:flex-row">
+                  <div className="w-full lg:w-[40%]">
                     {dt.items.slice(0, 3).map((item, index) => (
                       <TopChartItem key={index} data={item} index={index + 1} />
                     ))}
                   </div>
-                  <div className="col-span-7"></div>
+                  <div className="w-full lg:w-[60%]">
+                    <Line
+                      options={{
+                        responsive: true,
+                      }}
+                      updateMode="resize"
+                      data={{
+                        labels:
+                          dt.chart.times &&
+                          dt.chart.times.map((t) => t.hour + ":00"),
+                        datasets:
+                          dt.items &&
+                          dt.items.slice(0, 3).map((item) => {
+                            return {
+                              label: item.title,
+                              data: dt.chart.items[item.encodeId].map(
+                                (item) => item.counter
+                              ),
+                            };
+                          }),
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             )}
