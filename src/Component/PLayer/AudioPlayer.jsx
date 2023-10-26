@@ -10,7 +10,7 @@ import {
 function AudioPlayer() {
   const { currentSongId, currentTime } = useSelector((state) => state.playNow);
 
-  const { playing, volume, loop, isMute } = useSelector(
+  const { playing, volume, loop, isMute, played } = useSelector(
     (state) => state.setting
   );
 
@@ -24,7 +24,15 @@ function AudioPlayer() {
     audioRef.current.seekTo(currentTime);
   }, [currentTime]);
 
+  const handleChangeProgress = useCallback(
+    (e) => {
+      dispatch(setPlayed(e.playedSeconds));
+    },
+    [played]
+  );
+
   const onReady = useCallback(() => {
+    dispatch(setReady(true));
     if (!isReady) {
       if (audioRef.current) {
         audioRef?.current?.seekTo(currentTime, "seconds");
@@ -42,9 +50,7 @@ function AudioPlayer() {
       muted={isMute}
       loop={loop}
       volume={volume}
-      onProgress={(e) => {
-        dispatch(setPlayed(e.playedSeconds));
-      }}
+      onProgress={handleChangeProgress}
       onEnded={() => {
         dispatch(setPlaying(false));
       }}

@@ -123,7 +123,7 @@ function Footer() {
             )}
           >
             {!isReady && <LoadingCircle />}
-            <span onClick={handlePlayPause} className="">
+            <span onClick={handlePlayPause}>
               {!playing && isReady && <MdPlayCircleOutline />}
               {isReady && playing && <MdPauseCircleOutline />}
             </span>

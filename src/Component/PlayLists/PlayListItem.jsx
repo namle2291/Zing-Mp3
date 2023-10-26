@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { playSong, setFavouriteSong } from "../../features/setPlayNow/playNow";
 
 import { toast } from "react-toastify";
-import { setPlaying } from "../../features/settingPlay/settingPlay";
+import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import LoadingCircle from "../Loading/LoadingCircle";
 
 function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
@@ -30,11 +30,16 @@ function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
       toast("Dành cho tài khoản Vip");
       return;
     }
-    if (item.encodeId !== currentSongId) {
+
+    if (playing) {
+      dispatch(setReady(false));
       dispatch(setPlaying(false));
-      dispatch(playSong(item));
-      dispatch(setPlaying(true));
-    } else if (item.encodeId === currentSongId) {
+    }
+
+    dispatch(playSong(item));
+    dispatch(setPlaying(true));
+
+    if (item.encodeId === currentSongId) {
       dispatch(setPlaying(!playing));
     }
   };
@@ -71,7 +76,7 @@ function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
             </span>
             <span className="inset-center">
               {!isReady && active && <LoadingCircle />}
-              {!playing && active && <PlayIcon />}
+              {!playing && active && isReady && <PlayIcon />}
               {playing && active && isReady && indicatorEl}
             </span>
           </div>
