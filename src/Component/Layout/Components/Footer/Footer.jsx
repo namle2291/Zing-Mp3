@@ -72,21 +72,28 @@ function Footer() {
       <div className={cx("player-control-left", "w-[40%] md:w-[30%]")}>
         <div className={cx("media")}>
           <div
-            className={cx(
-              "left",
-              "w-[44px] h-[44px] md:w-[64px] md:h-[64px] relative"
-            )}
+            className={`w-[44px] h-[44px] md:w-[64px] md:h-[64px] relative overflow-hidden`}
           >
-            <img src={infoSong.thumbnailM} alt="" />
+            <img
+              src={infoSong.thumbnailM}
+              className={`w-full h-full object-cover ${
+                playing ? "isPlaying" : "rounded-md"
+              }`}
+              alt=""
+            />
             <span className="inset-center">{playing && indicatorEl}</span>
           </div>
           <div className={cx("center")}>
             <div className={cx("music")}>{infoSong.title}</div>
             <div className={cx("name")}>
               {infoSong.artists.map((item, index) => (
-                <Link to={`/artist/${item.alias}`} key={index}>
+                <Link
+                  className="text-[var(--text-secondary)]"
+                  to={`/artist/${item.alias}`}
+                  key={index}
+                >
                   {index > 0 ? ", " : ""}
-                  <span className="text-[var(--text-secondary)] hover:underline">
+                  <span className="hover:underline">
                     {item.name}
                   </span>
                 </Link>

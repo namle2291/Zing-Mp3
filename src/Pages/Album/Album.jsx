@@ -14,6 +14,7 @@ function Album() {
   const { id } = useParams();
 
   useEffect(() => {
+    setData([]);
     axios.get(tmdAPI.getAlbumPage(id)).then(({ data }) => {
       if (data.err === 0) {
         setData(data.data);

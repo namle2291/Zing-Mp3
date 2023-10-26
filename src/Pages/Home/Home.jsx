@@ -128,13 +128,17 @@ function Home() {
                 <div className="flex gap-3 flex-col lg:flex-row">
                   <div className="w-full lg:w-[40%]">
                     {dt.items.slice(0, 3).map((item, index) => (
-                      <TopChartItem key={index} data={item} index={index + 1} />
+                      <TopChartItem hasBackground key={index} data={item} index={index + 1} />
                     ))}
                   </div>
                   <div className="w-full lg:w-[60%]">
                     <Line
                       options={{
                         responsive: true,
+                        hover: {
+                          mode: "index",
+                          intersec: false,
+                        },
                       }}
                       updateMode="resize"
                       data={{

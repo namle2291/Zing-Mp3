@@ -95,11 +95,13 @@ function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
             <div className="text-xs line-clamp-1 text-[14px] mt-1">
               {data.artists &&
                 data.artists.map((item, index) => (
-                  <Link to={`/artist/${item.alias}`} key={index}>
+                  <Link
+                    className="text-[var(--text-secondary)]"
+                    to={`/artist/${item.alias}`}
+                    key={index}
+                  >
                     {index > 0 ? ", " : ""}
-                    <span className="text-[var(--text-secondary)] hover:underline">
-                      {item.name}
-                    </span>
+                    <span className="hover:underline">{item.name}</span>
                   </Link>
                 ))}
             </div>

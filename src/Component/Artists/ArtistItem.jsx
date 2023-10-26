@@ -24,7 +24,10 @@ function ArtistItem({ data }) {
           {data.name}
         </Link>
         <div className="text-[12px]" style={{ color: "var(--text-secondary)" }}>
-          {data.totalFollow} quan tâm
+          {data.totalFollow > 1000
+            ? data.totalFollow.toString().slice(0, 1) + "M"
+            : data.totalFollow}{" "}
+          quan tâm
         </div>
         <button
           className="py-[4px] px-[14px] text-[12px] border rounded-xl mt-[10px] flex align-items-center mx-auto group hover:play-btn-hover"

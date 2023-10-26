@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     fontFamily: {
       playpen: ["Playpen Sans"],
+      roboto: ["Roboto"],
     },
   },
   plugins: [require("flowbite/plugin")],

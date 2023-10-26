@@ -9,7 +9,7 @@ import { PlayIcon } from "../Icon/Icon";
 import LoadingCircle from "../Loading/LoadingCircle";
 import { Audio, useLoading } from "@agney/react-loading";
 
-function AlbumListItem({ item, active, isVip }) {
+function AlbumListChartItem({ item, active, isVip, index }) {
   const { currentSongId } = useSelector((state) => state.playNow);
   const { playing, isReady } = useSelector((state) => state.setting);
 
@@ -46,30 +46,45 @@ function AlbumListItem({ item, active, isVip }) {
     >
       <div className="flex items-center">
         <div className="w-[53%] flex gap-2">
-          <div
-            className="w-[40px] h-[40px] shrink-0 overflow-hidden rounded-sm cursor-pointer relative"
-            onClick={() => fetchSong(item)}
-          >
+          <div className="flex items-center gap-2">
+            <span
+              className={`
+          ${index === 1 ? "text-stroke1" : ""}
+          ${index === 2 ? "text-stroke2" : ""}
+          ${
+            index === 3 ? "text-stroke3" : ""
+          } text-[30px] w-[30px] text-center font-roboto`}
+              style={{
+                WebkitTextStroke: "1px #fff",
+              }}
+            >
+              {index}
+            </span>
             <div
-              className={`absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 group-hover:block ${
-                active ? "block" : "hidden"
-              }`}
-            ></div>
-            <img
-              src={item.thumbnailM}
-              className="w-full h-full object-cover"
-              alt={item.title}
-            />
-            <span className="inset-center hidden group-hover:block">
-              {!active && <PlayIcon />}
-            </span>
-            <span className="inset-center">
-              {!isReady && active && <LoadingCircle />}
-              {!playing && active && isReady && <PlayIcon />}
-              {playing && active && isReady && indicatorEl}
-            </span>
+              className="w-[40px] h-[40px] shrink-0 overflow-hidden rounded-sm cursor-pointer relative"
+              onClick={() => fetchSong(item)}
+            >
+              <div
+                className={`absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 group-hover:block ${
+                  active ? "block" : "hidden"
+                }`}
+              ></div>
+              <img
+                src={item.thumbnailM}
+                className="w-full h-full object-cover"
+                alt={item.title}
+              />
+              <span className="inset-center hidden group-hover:block">
+                {!active && <PlayIcon />}
+              </span>
+              <span className="inset-center">
+                {!isReady && active && <LoadingCircle />}
+                {!playing && active && isReady && <PlayIcon />}
+                {playing && active && isReady && indicatorEl}
+              </span>
+            </div>
           </div>
-          <div className="">
+          <div>
             <div className="line-clamp-1 text-[13px] text-[var(--text-primary)]">
               {item.title}
             </div>
@@ -106,4 +121,4 @@ function AlbumListItem({ item, active, isVip }) {
   );
 }
 
-export default memo(AlbumListItem);
+export default memo(AlbumListChartItem);

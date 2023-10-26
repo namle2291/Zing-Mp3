@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = JSON.parse(localStorage.getItem("setting")) || {
   playing: false,
-  volume: 0.2,
+  volume: 1,
   random: false,
   loop: false,
   autoplay: false,
