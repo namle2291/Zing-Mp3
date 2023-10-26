@@ -72,17 +72,25 @@ function Home() {
                 </div>
                 <div className="hidden md:grid md:grid-cols-2 lg:grid-col-3 ">
                   {dt.items &&
-                    dt.items[tab].slice(0, 12).map((item, index) => (
-                      <div key={index}>
-                        <PlayListItem data={item} />
-                      </div>
-                    ))}
+                    dt.items[tab].slice(0, 12).map((item, index) => {
+                      return (
+                        <div key={index}>
+                          <PlayListItem
+                            isVip={item?.streamingStatus === 2 ? true : false}
+                            data={item}
+                          />
+                        </div>
+                      );
+                    })}
                 </div>
                 <div className="grid md:hidden md:grid-cols-2 lg:grid-col-3 ">
                   {dt.items &&
                     dt.items[tab].slice(0, 4).map((item, index) => (
                       <div key={index}>
-                        <PlayListItem data={item} />
+                        <PlayListItem
+                          isVip={item?.streamingStatus === 2 ? true : false}
+                          data={item}
+                        />
                       </div>
                     ))}
                 </div>
@@ -124,9 +132,7 @@ function Home() {
                       <TopChartItem key={index} data={item} index={index + 1} />
                     ))}
                   </div>
-                  <div className="col-span-7">
-                    {console.log(dt)}
-                  </div>
+                  <div className="col-span-7"></div>
                 </div>
               </div>
             )}

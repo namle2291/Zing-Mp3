@@ -6,18 +6,13 @@ import { BiDotsHorizontalRounded, BiHeart } from "react-icons/bi";
 import { useLoading, Audio } from "@agney/react-loading";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSong,
-  playSong,
-  setFavouriteSong,
-  setCurrentTime,
-} from "../../features/setPlayNow/playNow";
+import { playSong, setFavouriteSong } from "../../features/setPlayNow/playNow";
 
 import { toast } from "react-toastify";
-import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
+import { setPlaying } from "../../features/settingPlay/settingPlay";
 import LoadingCircle from "../Loading/LoadingCircle";
 
-function PlayListItem({ data, hasIcon, hasLike = true }) {
+function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
   const { currentSongId } = useSelector((state) => state.playNow);
   const { playing, isReady } = useSelector((state) => state.setting);
 
@@ -29,10 +24,9 @@ function PlayListItem({ data, hasIcon, hasLike = true }) {
   const dispatch = useDispatch();
 
   let active = data.encodeId === currentSongId;
-  let isVip = data.streamingStatus === 2 ? true : false;
 
   const fetchSong = (item) => {
-    if (item.streamingStatus === 2) {
+    if (isVip) {
       toast("Dành cho tài khoản Vip");
       return;
     }

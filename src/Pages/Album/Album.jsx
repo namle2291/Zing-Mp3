@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { httpRequest, tmdAPI } from "../../axios/axios-custom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentSongId } from "../../features/setPlayNow/playNow";
+import AlbumList from "../../Component/Albums/AlbumList";
 
 function Album() {
   const [datas, setData] = useState([]);
@@ -82,73 +83,8 @@ function Album() {
           </p>
         )}
 
-        <table className="border-separate border-spacing-x-1 table-no-border w-[100%]">
-          <thead>
-            <tr style={{ color: "var(--text-secondary)" }}>
-              <th>Bài hát</th>
-              <th className="hidden lg:table-cell">Album</th>
-              <th className="w-[100px] text-end">Thời gian</th>
-            </tr>
-          </thead>
-          <tbody>
-            {datas?.song &&
-              datas?.song.items.map((item, index) => {
-                return (
-                  <tr
-                    onClick={() => {}}
-                    key={index}
-                    className="hover:table-active align-middle"
-                  >
-                    <td className="">
-                      <div className="flex gap-2 align-items-center">
-                        <div className="max-w-[40px] max-h-[40px] overflow-hidden rounded-md">
-                          <img
-                            className="w-[100%] h-[100%] object-cover"
-                            src={item.thumbnail}
-                            alt={item.title}
-                          />
-                        </div>
-                        <div>
-                          <div
-                            className="text-[14px] line-clamp-1"
-                            style={{ color: "var(--player-text)" }}
-                          >
-                            {item.title}
-                            {item.streamingStatus === 2 && (
-                              <span className="ml-2 bg-yellow-400 text-white text-[12px] px-2 py-[2px] rounded-[3px] font-semibold">
-                                Vip
-                              </span>
-                            )}
-                          </div>
-                          <a
-                            href="/"
-                            className="text-[12px]"
-                            style={{ color: "var(--text-secondary)" }}
-                          >
-                            {item.artistsNames}
-                          </a>
-                        </div>
-                      </div>
-                    </td>
-                    <td
-                      className="hidden lg:table-cell "
-                      style={{ color: "var(--text-secondary)" }}
-                    >
-                      <span className="text-[13px]">
-                        {item.album?.title ?? item.title}
-                      </span>
-                    </td>
-                    <td
-                      className="text-end"
-                      style={{ color: "var(--text-secondary)" }}
-                    >
-                      <span className="text-[14px]">3:02</span>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        {/* Album song */}
+        <AlbumList data={datas?.song.items} />
         <div
           className="text-[13px] mt-2"
           style={{ color: "var(--text-secondary)" }}

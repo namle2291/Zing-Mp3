@@ -4,4 +4,4 @@ function formatTimes(duration) {
   return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 }
 
-export default formatTimes
+export default formatTimes;
