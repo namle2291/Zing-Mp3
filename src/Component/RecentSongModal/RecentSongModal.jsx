@@ -24,7 +24,7 @@ export default function RecentSongModal({ active }) {
 
   return (
     <div
-      className={`w-[330px] z-10 h-[calc(100vh-90px)]  absolute top-0 right-0 bg-[var(--layout-bg)] flex flex-col`}
+      className={`w-[330px] z-10 h-[calc(100vh-90px)]  fixed top-0 right-0 bg-[var(--layout-bg)] flex flex-col`}
       style={{
         borderLeft: "1px solid var(--border-primary)",
         transform: `translateX(${!active ? "330" : "0"}px)`,
