@@ -116,26 +116,6 @@ const themes = [
     title: "Nghệ Sĩ",
     items: [
       {
-        name: "Jack",
-        itemS:
-          "https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/theme/jack.jpg",
-        dataTheme: "brown",
-        bgImg:
-          "https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/theme-background/jack.jpg",
-        bgPlaying: false,
-        bgHeader: false,
-        dataStyle: [
-          "--layout-bg: #767269",
-          "--player-bg: #4C473E",
-          "--primary-bg: #605C52",
-          "--queue-player-popup-bg: #726c5e",
-          "--purple-primary: #D08011",
-          "--link-text-hover: #F59D22",
-          "--main-box-shadow: #4242421a",
-          "--linear-gradient-bg: linear-gradient(to bottom, #656156, #574f40)",
-        ],
-      },
-      {
         name: "Ji Chang Wook",
         itemS:
           "https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/theme/ji-chang-wook.jpg",

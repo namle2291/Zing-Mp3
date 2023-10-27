@@ -11,6 +11,7 @@ import { playSong, setFavouriteSong } from "../../features/setPlayNow/playNow";
 import { toast } from "react-toastify";
 import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import LoadingCircle from "../Loading/LoadingCircle";
+import { pushSong } from "../../features/setRecentSong/setRecentSong";
 
 function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
   const { currentSongId } = useSelector((state) => state.playNow);
@@ -38,6 +39,7 @@ function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
 
     dispatch(playSong(item));
     dispatch(setPlaying(true));
+    dispatch(pushSong(item));
 
     if (item.encodeId === currentSongId) {
       dispatch(setPlaying(!playing));

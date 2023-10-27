@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function TopChartItem({ data, index, hasBackground }) {
-  console.log(data);
+
   return (
     <div
       className={`flex justify-between items-center rounded-md py-2 mb-2 px-2 hover:bg-[var(--alpha-bg)] ${
