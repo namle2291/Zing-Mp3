@@ -17,23 +17,13 @@ import formatTimes from "../../utils/formatTimes";
 import Loading from "../Loading/Loading";
 
 import logo from "../../assets/images/logo.png";
+import ItemLyric from "./ItemLyric";
 
 function ViewPlayMusicMain({ active, onShow }) {
-  const [data, setData] = useState({});
-  const { currentSongId, infoSong, duration } = useSelector(
-    (state) => state.playNow
-  );
+  const { infoSong, duration, lyrics } = useSelector((state) => state.playNow);
   const { playing, loop, played } = useSelector((state) => state.setting);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    httpRequest.get(`/lyric?id=${currentSongId}`).then(({ data }) => {
-      setData(data.data);
-    });
-  }, [currentSongId]);
-
-  // console.log(data)
 
   return (
     <div
@@ -59,33 +49,20 @@ function ViewPlayMusicMain({ active, onShow }) {
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-12">
-        <div className="col-span-5 flex justify-center">
-          <div className="w-[300px] h-[300px] overflow-hidden rounded-md shrink-0">
-            <img
-              src={infoSong.thumbnailM}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
+      <div className="mx-auto">
+        <div className="w-[150px] h-[150px] overflow-hidden rounded-md shrink-0 mx-auto mb-3">
+          <img
+            src={infoSong.thumbnailM}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         </div>
-        <div className="col-span-7 overflow-y-auto max-h-[500px]">
-          {Object.keys(data).length > 0 ? (
+        <div className="overflow-y-auto max-h-[300px] flex-1">
+          {Object.keys(lyrics).length > 0 ? (
             <ul className="list-none">
-              {data.sentences &&
-                data.sentences.map((item, index) => {
-                  return (
-                    <li
-                      className="py-[10px] text-[38px] text-white"
-                      key={index}
-                    >
-                      {item.words.map((w, index) => (
-                        <span key={index} className="">
-                          {w.data + " "}
-                        </span>
-                      ))}
-                    </li>
-                  );
+              {lyrics.sentences &&
+                lyrics.sentences.map((item, index) => {
+                  return <ItemLyric isShow={active} data={item} key={index} />;
                 })}
             </ul>
           ) : (

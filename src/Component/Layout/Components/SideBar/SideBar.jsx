@@ -91,13 +91,13 @@ function SideBar() {
           Nam MP3
         </h5>
       </div>
-      <div className="">
+      <div>
         {MENU_ITEMS1.map((item) => (
           <SideBarItem mobile={mobile} key={item.id} data={item} />
         ))}
       </div>
       <div className={cx("border")}></div>
-      <div className="">
+      <div>
         {MENU_ITEMS2.map((item) => (
           <SideBarItem mobile={mobile} key={item.id} data={item} />
         ))}

@@ -1,5 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { httpRequest } from "../../axios/axios-custom";
+import { lsnAPI } from "../../axios/axios-custom";
+import axios from "axios";
+
+export const fetchLyrics = createAsyncThunk(
+  "playNow/fetchLyrics",
+  async (encodeId) => {
+    const rs = await axios.get(lsnAPI.getLyrics(encodeId));
+    return rs.data;
+  }
+);
 
 const initialState = JSON.parse(localStorage.getItem("play_now")) || {
   currentSongId: null,
@@ -38,6 +47,11 @@ const playNow = createSlice({
 
       localStorage.setItem("play_now", JSON.stringify(state));
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchLyrics.fulfilled, (state, action) => {
+      state.lyrics = action.payload.data;
+    });
   },
 });
 

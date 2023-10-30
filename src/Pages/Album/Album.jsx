@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {  useParams } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
-import { httpRequest, tmdAPI } from "../../axios/axios-custom";
+import { lsnAPI } from "../../axios/axios-custom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentSongId } from "../../features/setPlayNow/playNow";
 import AlbumList from "../../Component/Albums/AlbumList";
 
 function Album() {
@@ -15,7 +13,7 @@ function Album() {
 
   useEffect(() => {
     setData([]);
-    axios.get(tmdAPI.getAlbumPage(id)).then(({ data }) => {
+    axios.get(lsnAPI.getAlbumPage(id)).then(({ data }) => {
       if (data.err === 0) {
         setData(data.data);
       } else {

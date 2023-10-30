@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { httpRequest } from "../../axios/axios-custom";
@@ -71,31 +70,36 @@ function Artist() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-h-[300px] overflow-y-auto gap-3">
                     {section?.items.map((item, index) => (
                       <div key={index}>
-                        <PlayListItem data={item} />
+                        <PlayListItem
+                          data={item}
+                          isVip={item?.streamingStatus === 2 ? true : false}
+                        />
                       </div>
                     ))}
                   </div>
                 )}
                 {section.sectionType === "playlist" && (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                    {section.items.slice(0, 5).map((item, index) => {
-                      return (
-                        <div key={index}>
-                          <AlbumItem data={item} />
-                        </div>
-                      );
-                    })}
+                    {section.items &&
+                      section.items.slice(0, 5).map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <AlbumItem data={item} />
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
                 {section?.sectionType === "video" && (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                    {section.items.slice(0, 5).map((item, index) => {
-                      return (
-                        <div key={index}>
-                          <MVItem data={item} />
-                        </div>
-                      );
-                    })}
+                    {section.items &&
+                      section.items.slice(0, 5).map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <MVItem data={item} />
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
                 {section.sectionType === "artist" && (

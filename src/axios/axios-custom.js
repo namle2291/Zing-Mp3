@@ -1,71 +1,71 @@
 import axios from "axios";
 
-const tmdbEndpoint = "https://api-zingmp3.vercel.app/api";
+const apiEndpoint = "https://api-zingmp3.vercel.app/api";
 
 const httpRequest = axios.create({
   baseURL: "https://api-zingmp3-public.vercel.app/api",
 });
 
-export const tmdAPI = {
-  //  getMovieDetails: (movieId) => `${tmdbEndpoint}/${movieId}?api_ey=${apiKey}`,
-  getHomePage: () => `${tmdbEndpoint}/home`,
+export const lsnAPI = {
+  //  getMovieDetails: (movieId) => `${apiEndpoint}/${movieId}?api_ey=${apiKey}`,
+  getHomePage: () => `${apiEndpoint}/home`,
 
   // get Zing Chart :
-  getTopChart: () => `${tmdbEndpoint}/homechart`,
+  getTopChart: () => `${apiEndpoint}/homechart`,
 
   // get RadioPage :
-  getRadioPage: () => `${tmdbEndpoint}/radio`,
+  getRadioPage: () => `${apiEndpoint}/radio`,
 
   // get New Feed :
-  getNewFeed: (id, page) => `${tmdbEndpoint}/newfeeds?id=${id}&page=${page}`,
+  getNewFeed: (id, page) => `${apiEndpoint}/newfeeds?id=${id}&page=${page}`,
 
   // get Mới Phát Hành :
-  getNewSong: () => `${tmdbEndpoint}/newreleasechart`,
+  getNewSong: () => `${apiEndpoint}/newreleasechart`,
 
   // get Thể Loại :
-  getHubHome: () => `${tmdbEndpoint}/hubhome`,
+  getHubHome: () => `${apiEndpoint}/hubhome`,
   // get Hub Detail:
-  getHubDetail: (id) => `${tmdbEndpoint}/hubdetails/${id}`,
+  getHubDetail: (id) => `${apiEndpoint}/hubdetails/${id}`,
 
   // get Top100Page :
-  getTop100Page: () => `${tmdbEndpoint}/top100`,
+  getTop100Page: () => `${apiEndpoint}/top100`,
 
   // get List Mv :
   getListMv: (id, page) =>
-    `${tmdbEndpoint}/listmv?id=${id}&page=${page}&count=19`,
+    `${apiEndpoint}/listmv?id=${id}&page=${page}&count=19`,
 
   // get Category Mv :
-  getCategoryMv: (id) => `${tmdbEndpoint}/categorymv/${id}`,
+  getCategoryMv: (id) => `${apiEndpoint}/categorymv/${id}`,
 
   // get Mv:
-  getVideoMv: (id) => `${tmdbEndpoint}/mv/${id}`,
+  getVideoMv: (id) => `${apiEndpoint}/mv/${id}`,
 
   // get getArtistPage:
-  getArtistPage: (id) => `${tmdbEndpoint}/artist/${id}`,
+  getArtistPage: (id) => `${apiEndpoint}/artist/${id}`,
 
   // get getAlbumPage :
-  getAlbumPage: (id) => `${tmdbEndpoint}/playlist/${id}`,
+  getAlbumPage: (id) => `${apiEndpoint}/playlist/${id}`,
 
   getSong: (id) => `https://api-zingmp3-public.vercel.app/api/song?id=${id}`,
 
-  getSuggestedAlbum: (id) => `${tmdbEndpoint}/suggestedplaylists/${id}`,
+  getSuggestedAlbum: (id) => `${apiEndpoint}/suggestedplaylists/${id}`,
 
   //  get từ khóa hot  :
-  getHotKeyApi: () => `${tmdbEndpoint}/recommendkeyword`,
+  getHotKeyApi: () => `${apiEndpoint}/recommendkeyword`,
 
   // lấy key gợi ý :
   getHotSuggestionApi: (keyword) =>
-    `${tmdbEndpoint}/suggestionkeyword?keyword=${keyword}`,
+    `${apiEndpoint}/suggestionkeyword?keyword=${keyword}`,
 
   getSearchByType: (keyword, type) =>
-    `${tmdbEndpoint}/searchtype?keyword=${keyword}&type=${type}`,
+    `${apiEndpoint}/searchtype?keyword=${keyword}&type=${type}`,
 
   //  bắt đầu search :
   getSearchAllKeyApi: (keyword) => {
-    return `${tmdbEndpoint}/searchall?keyword=${keyword}`;
+    return `${apiEndpoint}/searchall?keyword=${keyword}`;
   },
   // Lyrics :
-  getLyrics: (id) => `${tmdbEndpoint}/songlyrics/${id}`,
+  getLyrics: (id) => `${apiEndpoint}/songlyrics/${id}`,
 };
 
 export { httpRequest };

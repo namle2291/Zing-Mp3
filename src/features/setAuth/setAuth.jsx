@@ -6,7 +6,7 @@ const initialState = {
   password: null,
   loading: false,
   token: JSON.parse(localStorage.getItem("token")),
-  userInfo: JSON.parse(localStorage.getItem("user")),
+  userInfo: JSON.parse(localStorage.getItem("userInfo")),
 };
 
 export const fetchAuth = createAsyncThunk(

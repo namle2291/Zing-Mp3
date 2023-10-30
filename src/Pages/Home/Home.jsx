@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { memo, useEffect, useState } from "react";
 
-import { httpRequest, tmdAPI } from "../../axios/axios-custom";
+import { httpRequest } from "../../axios/axios-custom";
 
-import classNames from "classnames/bind";
-import styles from "./Home.module.scss";
 import Loading from "../../Component/Loading/Loading";
 import PlayListItem from "../../Component/PlayLists/PlayListItem";
 import AlbumItem from "../../Component/Albums/AlbumItem";
 import RadioItem from "../../Component/Radio/RadioItem";
 import NewReleaseChartItem from "../../Component/TopChart/NewReleaseChartItem";
 import TopChartItem from "../../Component/TopChart/TopChartItem";
-import Chart from "chart.js/auto";
 
+import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-const cx = classNames.bind(styles);
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const tabs = [
   {
@@ -38,13 +36,14 @@ const tabs = [
 function Home() {
   const [tab, setTab] = useState("all");
   const [datas, setData] = useState([]);
+
   useEffect(() => {
     httpRequest.get("/home").then(({ data }) => {
       setData(data.data.items);
     });
   }, []);
 
-  if (datas.length <= 0) return <Loading />;
+  if (Object.keys(datas).length <= 0) return <Loading />;
 
   return (
     <>
@@ -52,6 +51,26 @@ function Home() {
         datas.map((dt, index) => (
           <div key={index} className="mb-4">
             {dt?.title && dt?.items && <h4 className="mb-3">{dt?.title}</h4>}
+            {/* Banner */}
+            {dt?.sectionType === "banner" && (
+              <>
+                <Swiper spaceBetween={30} slidesPerView={4}>
+                  {dt.items.map((item, index) => (
+                    <SwiperSlide
+                      key={index}
+                      className="rounded-lg w-[266px] overflow-hidden"
+                      navigation="true"
+                    >
+                      <img
+                        className="w-full h-full object-cover"
+                        src={item.banner}
+                        alt=""
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </>
+            )}
             {/* Mới phát hành */}
             {dt?.sectionType === "new-release" && (
               <div>
@@ -108,14 +127,18 @@ function Home() {
             )}
             {/* BXH  */}
             {dt?.sectionType === "newReleaseChart" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <Swiper spaceBetween={30} slidesPerView={4}>
                 {dt.items &&
                   dt.items.map((item, index) => (
-                    <div key={index}>
-                      <NewReleaseChartItem data={item} />
-                    </div>
+                    <SwiperSlide
+                      key={index}
+                      className="rounded-lg w-[266px] overflow-hidden"
+                      navigation="true"
+                    >
+                      <NewReleaseChartItem data={item} index={index + 1} />
+                    </SwiperSlide>
                   ))}
-              </div>
+              </Swiper>
             )}
             {/* Chart  */}
             {dt?.sectionType === "RTChart" && (
@@ -128,7 +151,12 @@ function Home() {
                 <div className="flex gap-3 flex-col lg:flex-row">
                   <div className="w-full lg:w-[40%]">
                     {dt.items.slice(0, 3).map((item, index) => (
-                      <TopChartItem hasBackground key={index} data={item} index={index + 1} />
+                      <TopChartItem
+                        hasBackground
+                        key={index}
+                        data={item}
+                        index={index + 1}
+                      />
                     ))}
                   </div>
                   <div className="w-full lg:w-[60%]">
@@ -178,14 +206,18 @@ function Home() {
             )}
             {/* Radio */}
             {dt?.sectionType === "livestream" && (
-              <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-3">
+              <Swiper spaceBetween={30} slidesPerView={7}>
                 {dt.items &&
                   dt.items.map((item, index) => (
-                    <div key={index}>
+                    <SwiperSlide
+                      key={index}
+                      className="rounded-lg w-[266px] overflow-hidden"
+                      navigation="true"
+                    >
                       <RadioItem data={item} />
-                    </div>
+                    </SwiperSlide>
                   ))}
-              </div>
+              </Swiper>
             )}
           </div>
         ))}
@@ -193,4 +225,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default memo(Home);

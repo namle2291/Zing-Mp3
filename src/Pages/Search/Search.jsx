@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { tmdAPI } from "../../axios/axios-custom";
+import { lsnAPI } from "../../axios/axios-custom";
 
 import MVItem from "../../Component/MV/MVItem";
 
@@ -23,8 +23,8 @@ function Search() {
 
   useEffect(() => {
     setData([]);
-    axios.get(tmdAPI.getSearchAllKeyApi(q)).then(({ data }) => {
-      if (data.data.counter.song !== 0) {
+    axios.get(lsnAPI.getSearchAllKeyApi(q)).then(({ data }) => {
+      if (data.data.counter.song > 0) {
         setData(data.data);
       } else {
         setData([]);
@@ -33,9 +33,9 @@ function Search() {
     });
   }, [q]);
 
-  if (datas?.length === 0 && !mes) return <Loading />;
+  if (Object.keys(datas).length === 0 && !mes) return <Loading />;
 
-  if (mes && datas?.length === 0)
+  if (mes && Object.keys(datas).length === 0)
     return (
       <div className="text-center" style={{ color: "var(--text-primary)" }}>
         {mes}
@@ -105,7 +105,10 @@ function Search() {
             {datas.songs &&
               datas.songs.slice(0, 5).map((item, index) => (
                 <div key={index}>
-                  <PlayListItem data={item} />
+                  <PlayListItem
+                    data={item}
+                    isVip={item?.streamingStatus === 2 ? true : false}
+                  />
                 </div>
               ))}
           </div>

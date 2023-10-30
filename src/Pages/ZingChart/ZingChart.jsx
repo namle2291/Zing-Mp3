@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { httpRequest } from "../../axios/axios-custom";
-import TopChartItem from "../../Component/TopChart/TopChartItem";
 import { Line } from "react-chartjs-2";
 import Loading from "../../Component/Loading/Loading";
-import Album from "../Album/Album";
-import AlbumList from "../../Component/Albums/AlbumList";
 import AlbumListChartItem from "../../Component/Albums/AlbumListChartItem";
 import { useSelector } from "react-redux";
 
@@ -20,7 +17,6 @@ function ZingChart() {
       const { RTChart } = data.data;
       setRTChart(RTChart);
       setLoading(false);
-      console.log(data);
     });
   }, []);
 

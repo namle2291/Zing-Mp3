@@ -72,6 +72,11 @@ function AlbumListItem({ item, active, isVip }) {
           <div className="">
             <div className="line-clamp-1 text-[13px] text-[var(--text-primary)]">
               {item.title}
+              {isVip && (
+                <span className="ml-2 bg-yellow-400 text-white text-[12px] px-2 py-[2px] rounded-[3px] font-semibold">
+                  Vip
+                </span>
+              )}
             </div>
             <div className="line-clamp-1 text-[12px]">
               {item.artists &&

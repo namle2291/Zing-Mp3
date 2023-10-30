@@ -6,7 +6,11 @@ import { BiDotsHorizontalRounded, BiHeart } from "react-icons/bi";
 import { useLoading, Audio } from "@agney/react-loading";
 
 import { useDispatch, useSelector } from "react-redux";
-import { playSong, setFavouriteSong } from "../../features/setPlayNow/playNow";
+import {
+  fetchLyrics,
+  playSong,
+  setFavouriteSong,
+} from "../../features/setPlayNow/playNow";
 
 import { toast } from "react-toastify";
 import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
@@ -38,6 +42,7 @@ function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
     }
 
     dispatch(playSong(item));
+    dispatch(fetchLyrics(item.encodeId));
     dispatch(setPlaying(true));
     dispatch(pushSong(item));
 
