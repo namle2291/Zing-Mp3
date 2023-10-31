@@ -96,6 +96,7 @@ function Home() {
                           <PlayListItem
                             isVip={item?.streamingStatus === 2 ? true : false}
                             data={item}
+                            isAlbum={false}
                           />
                         </div>
                       );

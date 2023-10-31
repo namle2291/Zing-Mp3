@@ -3,14 +3,19 @@ import { Link } from "react-router-dom";
 import formatTimes from "../../utils/formatTimes";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { playSong } from "../../features/setPlayNow/playNow";
+import {
+  fetchAlbum,
+  fetchLyrics,
+  playSong,
+  setCurrentIndexSong,
+} from "../../features/setPlayNow/playNow";
 import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import { PlayIcon } from "../Icon/Icon";
 import LoadingCircle from "../Loading/LoadingCircle";
 import { Audio, useLoading } from "@agney/react-loading";
 
-function AlbumListItem({ item, active, isVip }) {
-  const { currentSongId } = useSelector((state) => state.playNow);
+function AlbumListItem({ item, active, isVip, isAlbum }) {
+  const { currentSongId, playList } = useSelector((state) => state.playNow);
   const { playing, isReady } = useSelector((state) => state.setting);
 
   const { indicatorEl } = useLoading({
@@ -25,12 +30,19 @@ function AlbumListItem({ item, active, isVip }) {
       toast("Dành cho tài khoản Vip");
       return;
     }
+
+    let e = playList.find((e) => e.encodeId === item.encodeId);
+    let index = playList.indexOf(e);
+
+    dispatch(setCurrentIndexSong(index));
+
     if (playing) {
       dispatch(setReady(false));
       dispatch(setPlaying(false));
     }
 
     dispatch(playSong(item));
+    dispatch(fetchLyrics(item.encodeId));
     dispatch(setPlaying(true));
 
     if (item.encodeId === currentSongId) {

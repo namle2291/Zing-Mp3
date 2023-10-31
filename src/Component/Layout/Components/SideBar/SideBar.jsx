@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./SideBar.module.scss";
 
 import logo from "../../../../assets/images/logo.png";
+import cd from "../../../../assets/images/cd.png";
 
 import SideBarItem from "../../../SideBar/SideBarItem";
 import useViewPort from "../../../../hooks/useViewPort";
@@ -81,14 +82,14 @@ function SideBar() {
   return (
     <div className="">
       <div className="flex align-items-center justify-center py-3">
-        <img className="w-[40px] h-[40px] object-cover" src={logo} alt="" />
+        <img className="w-[40px] h-[40px] object-cover" src={cd} alt="" />
         <h5
           className={`pl-3 ${
             mobile ? "hidden" : "block m-0 font-playpen font-semibold"
           }`}
           style={{ color: "var(--player-text)" }}
         >
-          Nam MP3
+          NamLee
         </h5>
       </div>
       <div>

@@ -6,9 +6,11 @@ import {
   setPlaying,
   setReady,
 } from "../../features/settingPlay/settingPlay";
+import { setCurrentIndexSong } from "../../features/setPlayNow/playNow";
 
 function AudioPlayer() {
-  const { currentSongId, currentTime } = useSelector((state) => state.playNow);
+  const { currentSongId, currentTime, currentIndexSong, infoSongNext } =
+    useSelector((state) => state.playNow);
 
   const { playing, volume, loop, isMute, played } = useSelector(
     (state) => state.setting
@@ -52,7 +54,11 @@ function AudioPlayer() {
       volume={volume}
       onProgress={handleChangeProgress}
       onEnded={() => {
-        dispatch(setPlaying(false));
+        if (infoSongNext.length > 0) {
+          dispatch(setCurrentIndexSong(currentIndexSong + 1));
+        } else {
+          dispatch(setPlaying(false));
+        }
       }}
       onReady={onReady}
     />

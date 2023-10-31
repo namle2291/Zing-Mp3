@@ -35,7 +35,7 @@ function Header() {
     <>
       {show && <ChooseTheme show handleClose={handleClose} />}
       <div
-        className="grid grid-cols-12 py-3 px-[20px] md:px-[60px]"
+        className="grid grid-cols-12 py-3 px-[20px] md:px-[60px] z-50"
         style={{ backgroundColor: "var(--layout-bg)" }}
       >
         <div className="col-span-8 md:col-span-10">
@@ -121,13 +121,13 @@ function Header() {
                 <span className="py-3">
                   <img
                     className="w-[100%] h-[100%] object-cover"
-                    src={`${
-                      Object.keys(userInfo).length > 0 &&
-                      userInfo.avatar !==
-                        "https://files.fullstack.edu.vn/f8-tiktok/"
-                        ? userInfo.avatar
-                        : "https://avatar.talk.zdn.vn/default"
-                    }`}
+                    // src={`${
+                    //   userInfo.length > 0 &&
+                    //   userInfo.avatar !==
+                    //     "https://files.fullstack.edu.vn/f8-tiktok/"
+                    //     ? userInfo?.avatar
+                    //     : "https://avatar.talk.zdn.vn/default"
+                    // }`}
                     alt=""
                   />
                 </span>

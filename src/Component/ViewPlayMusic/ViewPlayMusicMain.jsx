@@ -25,6 +25,8 @@ function ViewPlayMusicMain({ active, onShow }) {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {}, [lyrics]);
+
   return (
     <div
       className="absolute top-0 left-0 right-0 bottom-0 z-50 flex flex-col justify-between bg-[var(--layout-bg)]"
@@ -70,15 +72,15 @@ function ViewPlayMusicMain({ active, onShow }) {
           )}
         </div>
       </div>
-      <div className="w-[430px] mx-auto">
-        <div className="flex items-center text-[var(--text-primary)]">
+      <div className="w-[450px] mx-auto">
+        <div className="flex items-center justify-center text-[var(--text-primary)] ">
           <span>{formatTimes(played)}</span>
           <input
             value={played}
             type="range"
             max={duration}
             min={0}
-            className="w-full mx-2"
+            className="w-[250px] sm:w-full mx-2"
             onChange={(e) => {
               dispatch(setCurrentTime(parseFloat(e.target.value)));
             }}
@@ -86,7 +88,7 @@ function ViewPlayMusicMain({ active, onShow }) {
           <span>{formatTimes(duration)}</span>
         </div>
         <div className="flex align-items-center justify-center gap-[25px] text-[var(--text-primary)]">
-          <span className="hidden lg:flex text-[25px]">
+          <span className="text-[25px]">
             <MdShuffle />
           </span>
           <span className="flex align-items-center text-[25px]">
@@ -101,7 +103,7 @@ function ViewPlayMusicMain({ active, onShow }) {
             <MdSkipNext />
           </span>
           <span
-            className="hidden lg:flex text-[25px] cursor-pointer"
+            className="text-[25px] cursor-pointer"
             style={loop ? { color: "var(--link-text-hover)" } : {}}
             onClick={() => {
               dispatch(setLoop(!loop));

@@ -40,6 +40,7 @@ import AudioPlayer from "../../../PLayer/AudioPlayer";
 import {
   setFavouriteSong,
   setCurrentTime,
+  setCurrentIndexSong,
 } from "../../../../features/setPlayNow/playNow";
 import RecentSongModal from "../../../RecentSongModal/RecentSongModal";
 import ViewPlayMusicMain from "../../../ViewPlayMusic/ViewPlayMusicMain";
@@ -84,7 +85,9 @@ function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [showViewPlayMusic, setShowViewPlayMusic] = useState(false);
 
-  const { duration, infoSong } = useSelector((state) => state.playNow);
+  const { duration, infoSong, currentIndexSong } = useSelector(
+    (state) => state.playNow
+  );
 
   const { playing, volume, loop, played, isReady, isMute } = useSelector(
     (state) => state.setting
@@ -170,7 +173,12 @@ function Footer() {
               <span className="hidden lg:flex text-[25px]">
                 <MdShuffle />
               </span>
-              <span className="flex align-items-center text-[25px]">
+              <span
+                className="flex align-items-center text-[25px] cursor-pointer"
+                onClick={() =>
+                  dispatch(setCurrentIndexSong(currentIndexSong - 1))
+                }
+              >
                 <MdSkipPrevious />
               </span>
               <span
@@ -184,7 +192,12 @@ function Footer() {
                   {isReady && playing && <MdPauseCircleOutline />}
                 </span>
               </span>
-              <span className="flex align-items-center text-[25px]">
+              <span
+                className="flex align-items-center text-[25px] cursor-pointer"
+                onClick={() =>
+                  dispatch(setCurrentIndexSong(currentIndexSong + 1))
+                }
+              >
                 <MdSkipNext />
               </span>
               <span

@@ -2,13 +2,26 @@ import React from "react";
 
 import { BiDotsHorizontalRounded, BiHeart } from "react-icons/bi";
 import { SlControlPlay } from "react-icons/sl";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchAlbum, setInfoAlbum } from "../../features/setPlayNow/playNow";
+import { setPlaying } from "../../features/settingPlay/settingPlay";
 
 function AlbumItem({ data }) {
+  const dispatch = useDispatch();
+
+  const handleGetAlbum = (item) => {
+    dispatch(setPlaying(false));
+    dispatch(fetchAlbum(item.encodeId));
+    dispatch(setInfoAlbum(item));
+    dispatch(setPlaying(true));
+  };
+
   return (
     <Link
       to={`/album/${data.encodeId}`}
       className="max-w-[215px] group cursor-pointer"
+      onClick={() => handleGetAlbum(data)}
     >
       {/* Main */}
       <div className="relative overflow-hidden rounded-md">

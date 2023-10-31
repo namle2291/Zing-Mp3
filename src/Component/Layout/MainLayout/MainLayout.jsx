@@ -33,7 +33,9 @@ function MainLayout({ children }) {
         <div className="sticky top-0 z-10">
           <Header />
         </div>
-        <div className="px-[20px] md:px-[60px] mt-[10px]">{children}</div>
+        <div className="px-[20px] md:px-[60px] pb-[90px] mt-[10px]">
+          {children}
+        </div>
       </div>
       {currentSongId && <Footer />}
     </div>

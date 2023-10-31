@@ -7,9 +7,14 @@ import { useLoading, Audio } from "@agney/react-loading";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchAlbum,
   fetchLyrics,
   playSong,
+  playSongNotAlbum,
   setFavouriteSong,
+  setInfoAlbum,
+  setIsAlbum,
+  setPlayList,
 } from "../../features/setPlayNow/playNow";
 
 import { toast } from "react-toastify";
@@ -17,7 +22,7 @@ import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import LoadingCircle from "../Loading/LoadingCircle";
 import { pushSong } from "../../features/setRecentSong/setRecentSong";
 
-function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
+function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
   const { currentSongId } = useSelector((state) => state.playNow);
   const { playing, isReady } = useSelector((state) => state.setting);
 
@@ -36,12 +41,17 @@ function PlayListItem({ data, hasIcon, isVip, hasLike = true }) {
       return;
     }
 
+    if (!isAlbum) {
+      dispatch(setInfoAlbum([]));
+      dispatch(setPlayList([item]));
+    }
+
     if (playing) {
       dispatch(setReady(false));
       dispatch(setPlaying(false));
     }
 
-    dispatch(playSong(item));
+    dispatch(playSongNotAlbum(item));
     dispatch(fetchLyrics(item.encodeId));
     dispatch(setPlaying(true));
     dispatch(pushSong(item));

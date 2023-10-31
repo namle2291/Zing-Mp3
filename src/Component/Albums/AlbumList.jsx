@@ -28,6 +28,7 @@ export default function AlbumList({ data }) {
               isVip={item?.streamingStatus === 2 ? true : false}
               key={index}
               item={item}
+              isAlbum={true}
             />
           ))}
       </ul>
