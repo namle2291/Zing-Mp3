@@ -6,18 +6,6 @@ import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 export default function ItemLyric({ data, isShow }) {
   const { played } = useSelector((state) => state.setting);
 
-  const liRef = useRef(null);
-
-  const scrollActive = useCallback(() => {
-    setTimeout(() => {
-      if (!liRef.current) return;
-      smoothScrollIntoView(liRef.current, {
-        block: "center",
-        behavior: "smooth",
-      });
-    }, 50);
-  }, []);
-
   let text = "";
   let e = data.words;
 
@@ -32,14 +20,13 @@ export default function ItemLyric({ data, isShow }) {
   });
 
   return (
-    <li
-      ref={liRef}
-      className={`text-[var(--text-primary)] text-[20px] ${
+    <div
+      className={`text-[var(--text-primary)] text-[30px] ${
         active ? "text-yellow-300" : ""
       } ${over ? "text-gray-500" : ""}`}
     >
       {" "}
       {text}{" "}
-    </li>
+    </div>
   );
 }

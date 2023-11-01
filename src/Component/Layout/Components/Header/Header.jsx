@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tippy from "@tippyjs/react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { LeftIcon, RightIcon } from "../../../Icon/Icon";
 
-import { FcReddit, FcSettings } from "react-icons/fc";
+import { FcReddit } from "react-icons/fc";
 import Search from "../Search/Search";
 import ChooseTheme from "../../../ChooseTheme/ChooseTheme";
 
@@ -121,13 +121,13 @@ function Header() {
                 <span className="py-3">
                   <img
                     className="w-[100%] h-[100%] object-cover"
-                    // src={`${
-                    //   userInfo.length > 0 &&
-                    //   userInfo.avatar !==
-                    //     "https://files.fullstack.edu.vn/f8-tiktok/"
-                    //     ? userInfo?.avatar
-                    //     : "https://avatar.talk.zdn.vn/default"
-                    // }`}
+                    src={`${
+                      userInfo &&
+                      userInfo.avatar !==
+                        "https://files.fullstack.edu.vn/f8-tiktok/"
+                        ? userInfo.avatar
+                        : "https://avatar.talk.zdn.vn/default"
+                    }`}
                     alt=""
                   />
                 </span>

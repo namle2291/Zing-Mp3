@@ -2,14 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { lsnAPI } from "../../axios/axios-custom";
 import axios from "axios";
 
-export const fetchLyrics = createAsyncThunk(
-  "playNow/fetchLyrics",
-  async (encodeId) => {
-    const rs = await axios.get(lsnAPI.getLyrics(encodeId));
-    return rs.data;
-  }
-);
-
 export const fetchAlbum = createAsyncThunk(
   "setAlbum/fetchAlbum",
   async (encodeId) => {
@@ -25,7 +17,6 @@ const initialState = JSON.parse(localStorage.getItem("play_now")) || {
   duration: 0,
   infoSong: {},
   favouriteSongs: [],
-  lyrics: {},
   // Album
   playList: [],
   currentIndexSong: 0,
@@ -88,7 +79,7 @@ const playNow = createSlice({
       state.duration = state.infoSong.duration;
       state.currentTime = 0;
       state.currentSongId = state.infoSong.encodeId;
-      state.infoSongNext = state.playList[state.currentIndexSong + 1];
+      state.infoSongNext = state.playList[state.currentIndexSong + 1] || {};
       localStorage.setItem("play_now", JSON.stringify(state));
     },
     setNextSong: (state, action) => {
@@ -100,10 +91,6 @@ const playNow = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchLyrics.fulfilled, (state, action) => {
-      state.lyrics = action.payload.data;
-      localStorage.setItem("play_now", JSON.stringify(state));
-    });
     builder.addCase(fetchAlbum.fulfilled, (state, { payload }) => {
       state.playList = payload.data.song.items.filter(
         (e) => e.streamingStatus === 1

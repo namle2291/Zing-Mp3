@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { PlayIcon } from "../Icon/Icon";
 
-function OutstandingItem({ data, type }) {
+function OutstandingItem({ data, label }) {
   return (
     <div className="flex p-2 group play-list-hover justify-between rounded-md cursor-pointer">
       <div className="flex align-items-center">
@@ -21,7 +21,7 @@ function OutstandingItem({ data, type }) {
             className="text-xs mb-[3px]"
             style={{ color: "var(--text-secondary)" }}
           >
-            {type}
+            {label}
           </span>
           <h6
             className="text-sm mb-0 line-clamp-1"

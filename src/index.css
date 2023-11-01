@@ -58,6 +58,10 @@
     animation: rotate 6s linear infinite;
   }
 
+  .disabled {
+    cursor: not-allowed;
+  }
+
   @keyframes rotate {
     from {
       transform: rotate(0deg);

@@ -50,7 +50,6 @@ import {
   RadioIcon,
   ZingChartIcon,
 } from "../../../Icon/Icon";
-import SideBarItem from "../../../SideBar/SideBarItem";
 
 const cx = classNames.bind(styles);
 
@@ -85,7 +84,7 @@ function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [showViewPlayMusic, setShowViewPlayMusic] = useState(false);
 
-  const { duration, infoSong, currentIndexSong } = useSelector(
+  const { duration, infoSong, currentIndexSong, playList } = useSelector(
     (state) => state.playNow
   );
 
@@ -174,12 +173,18 @@ function Footer() {
                 <MdShuffle />
               </span>
               <span
-                className="flex align-items-center text-[25px] cursor-pointer"
-                onClick={() =>
-                  dispatch(setCurrentIndexSong(currentIndexSong - 1))
-                }
+                className={`flex align-items-center text-[25px] ${
+                  currentIndexSong === 0 ? "disabled" : "cursor-pointer"
+                }`}
+                onClick={() => {
+                  if (currentIndexSong !== 0) {
+                    dispatch(setCurrentIndexSong(currentIndexSong - 1));
+                  }
+                }}
               >
-                <MdSkipPrevious />
+                <MdSkipPrevious
+                  className={`${currentIndexSong === 0 ? "text-gray-500" : ""}`}
+                />
               </span>
               <span
                 className={cx(
@@ -193,10 +198,12 @@ function Footer() {
                 </span>
               </span>
               <span
-                className="flex align-items-center text-[25px] cursor-pointer"
-                onClick={() =>
-                  dispatch(setCurrentIndexSong(currentIndexSong + 1))
-                }
+                className={`flex align-items-center text-[25px] cursor-pointer`}
+                onClick={() => {
+                  if (currentIndexSong !== playList.length - 1)
+                    dispatch(setCurrentIndexSong(currentIndexSong + 1));
+                  dispatch(setPlaying(true));
+                }}
               >
                 <MdSkipNext />
               </span>

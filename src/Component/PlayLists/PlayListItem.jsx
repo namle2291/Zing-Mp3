@@ -11,6 +11,7 @@ import {
   fetchLyrics,
   playSong,
   playSongNotAlbum,
+  setCurrentIndexSong,
   setFavouriteSong,
   setInfoAlbum,
   setIsAlbum,
@@ -23,7 +24,7 @@ import LoadingCircle from "../Loading/LoadingCircle";
 import { pushSong } from "../../features/setRecentSong/setRecentSong";
 
 function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
-  const { currentSongId } = useSelector((state) => state.playNow);
+  const { currentSongId, playList } = useSelector((state) => state.playNow);
   const { playing, isReady } = useSelector((state) => state.setting);
 
   const { indicatorEl } = useLoading({
@@ -36,23 +37,30 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
   let active = data.encodeId === currentSongId;
 
   const fetchSong = (item) => {
+    let e = playList.find((e) => e.encodeId === item.encodeId);
+    let index = playList.indexOf(e);
+
     if (isVip) {
       toast("Dành cho tài khoản Vip");
       return;
     }
 
+    if (isAlbum) {
+      dispatch(setCurrentIndexSong(index));
+    }
+
     if (!isAlbum) {
       dispatch(setInfoAlbum([]));
       dispatch(setPlayList([item]));
+      dispatch(playSongNotAlbum(item));
     }
 
     if (playing) {
       dispatch(setReady(false));
       dispatch(setPlaying(false));
+      dispatch(setReady(true));
     }
 
-    dispatch(playSongNotAlbum(item));
-    dispatch(fetchLyrics(item.encodeId));
     dispatch(setPlaying(true));
     dispatch(pushSong(item));
 

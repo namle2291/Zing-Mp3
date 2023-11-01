@@ -22,6 +22,7 @@ function Album() {
     axios.get(lsnAPI.getAlbumPage(id)).then(({ data }) => {
       if (data.err === 0) {
         setData(data.data);
+        dispatch(setPlaying(true));
       } else {
         setErr(data.msg);
       }
@@ -39,10 +40,10 @@ function Album() {
   if (err) return <div className="text-center">{err}</div>;
 
   return (
-    <div className="grid grid-cols-12">
-      <div className="col-span-12 lg:col-span-3 text-center">
-        <div className="sticky top-0 left-0 flex gap-3 lg:block">
-          <div className="overflow-hidden h-[150px] sm:h-auto shrink-0">
+    <div className="flex flex-col lg:flex-row">
+      <div className="md:w-[33%] text-center mx-auto">
+        <div className="sticky top-0 left-0 flex flex-col gap-3">
+          <div className="overflow-hidden shrink-0 mx-auto">
             <img
               className={`w-[100%] h-[100%] object-cover ${
                 playing ? "isPlaying" : "rounded-lg"
@@ -94,7 +95,7 @@ function Album() {
           </div>
         </div>
       </div>
-      <div className="col-span-12 lg:col-span-9 px-3 mt-2 lg:mt-0">
+      <div className="px-3 mt-2 lg:mt-0 flex-1">
         {datas.description && (
           <p>
             <span style={{ color: "var(--text-secondary)" }}>Lời tựa</span>{" "}

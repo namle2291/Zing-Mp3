@@ -13,7 +13,7 @@ export default function AlbumList({ data }) {
         <div className="w-[53%] text-[var(--text-primary)] text-[13px]">
           BÀI HÁT
         </div>
-        <div className="flex-1 text-[var(--text-primary)] text-[13px]">
+        <div className="flex-1 text-[var(--text-primary)] text-[13px] hidden md:block">
           ALBUM
         </div>
         <div className="flex-1 text-[var(--text-primary)] text-[13px] text-end">

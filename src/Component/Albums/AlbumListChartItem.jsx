@@ -53,7 +53,7 @@ function AlbumListChartItem({ item, active, isVip, index }) {
           ${index === 2 ? "text-stroke2" : ""}
           ${
             index === 3 ? "text-stroke3" : ""
-          } text-[30px] w-[30px] text-center font-roboto`}
+          } text-[30px] w-[50px] text-center font-roboto`}
               style={{
                 WebkitTextStroke: "1px #fff",
               }}
@@ -105,7 +105,7 @@ function AlbumListChartItem({ item, active, isVip, index }) {
             </div>
           </div>
         </div>
-        <div className="flex-1 text-[12px] line-clamp-1">
+        <div className="flex-1 text-[12px] line-clamp-1 hidden md:block">
           <Link
             className="text-[var(--text-primary)]"
             to={`/album/${item.album && item.album.encodeId}`}

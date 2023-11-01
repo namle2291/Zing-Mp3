@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { httpRequest } from "../../axios/axios-custom";
+import { httpRequest, lsnAPI } from "../../axios/axios-custom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoop, setPlaying } from "../../features/settingPlay/settingPlay";
 import {
@@ -12,20 +12,30 @@ import {
 } from "react-icons/md";
 import { FiChevronDown } from "react-icons/fi";
 
-import { setCurrentTime } from "../../features/setPlayNow/playNow";
+import { setCurrentIndexSong, setCurrentTime } from "../../features/setPlayNow/playNow";
 import formatTimes from "../../utils/formatTimes";
 import Loading from "../Loading/Loading";
 
 import logo from "../../assets/images/logo.png";
 import ItemLyric from "./ItemLyric";
+import axios from "axios";
 
 function ViewPlayMusicMain({ active, onShow }) {
-  const { infoSong, duration, lyrics } = useSelector((state) => state.playNow);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+  const { infoSong, duration, currentSongId, currentIndexSong, playList } =
+    useSelector((state) => state.playNow);
   const { playing, loop, played } = useSelector((state) => state.setting);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [lyrics]);
+  useEffect(() => {
+    setLoading(true);
+    axios.get(lsnAPI.getLyrics(currentSongId)).then(({ data }) => {
+      setLoading(false);
+      setData(data.data);
+    });
+  }, [currentSongId]);
 
   return (
     <div
@@ -51,30 +61,29 @@ function ViewPlayMusicMain({ active, onShow }) {
           </span>
         </div>
       </div>
-      <div className="mx-auto">
-        <div className="w-[150px] h-[150px] overflow-hidden rounded-md shrink-0 mx-auto mb-3">
+      <div className="flex flex-col items-start md:flex-row py-2">
+        <div className="md:w-[30%] px-[30px] overflow-hidden rounded-md shrink-0 mx-auto mb-3">
           <img
             src={infoSong.thumbnailM}
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-lg"
           />
         </div>
-        <div className="overflow-y-auto max-h-[300px] flex-1">
-          {Object.keys(lyrics).length > 0 ? (
-            <ul className="list-none">
-              {lyrics.sentences &&
-                lyrics.sentences.map((item, index) => {
-                  return <ItemLyric isShow={active} data={item} key={index} />;
-                })}
-            </ul>
-          ) : (
-            <Loading />
+        <div className="overflow-y-auto max-h-[400px] w-[60%]">
+          {loading && <Loading />}
+          {!loading &&
+            data.sentences &&
+            data.sentences.map((item, index) => {
+              return <ItemLyric isShow={active} data={item} key={index} />;
+            })}
+          {!loading && !data.sentences && (
+            <h4 className="text-center">Lời bài hát đang cập nhật...</h4>
           )}
         </div>
       </div>
-      <div className="w-[450px] mx-auto">
-        <div className="flex items-center justify-center text-[var(--text-primary)] ">
-          <span>{formatTimes(played)}</span>
+      <div className="">
+        <div className="flex items-center justify-center text-[var(--text-primary)] px-[10px] lg:w-[50%] mx-auto">
+          <span className="text-[13px]">{formatTimes(played)}</span>
           <input
             value={played}
             type="range"
@@ -85,21 +94,39 @@ function ViewPlayMusicMain({ active, onShow }) {
               dispatch(setCurrentTime(parseFloat(e.target.value)));
             }}
           />
-          <span>{formatTimes(duration)}</span>
+          <span className="text-[13px]">{formatTimes(duration)}</span>
         </div>
         <div className="flex align-items-center justify-center gap-[25px] text-[var(--text-primary)]">
           <span className="text-[25px]">
             <MdShuffle />
           </span>
-          <span className="flex align-items-center text-[25px]">
-            <MdSkipPrevious />
+          <span
+            className={`flex align-items-center text-[25px] ${
+              currentIndexSong === 0 ? "disabled" : "cursor-pointer"
+            }`}
+            onClick={() => {
+              if (currentIndexSong !== 0) {
+                dispatch(setCurrentIndexSong(currentIndexSong - 1));
+              }
+            }}
+          >
+            <MdSkipPrevious
+              className={`${currentIndexSong === 0 ? "text-gray-500" : ""}`}
+            />
           </span>
           <span className="flex align-items-center text-[35px] h-[50px] cursor-pointer">
             <span onClick={() => dispatch(setPlaying(!playing))}>
               {!playing ? <MdPlayCircleOutline /> : <MdPauseCircleOutline />}
             </span>
           </span>
-          <span className="flex align-items-center text-[25px]">
+          <span
+            className={`flex align-items-center text-[25px] cursor-pointer`}
+            onClick={() => {
+              if (currentIndexSong !== playList.length - 1)
+                dispatch(setCurrentIndexSong(currentIndexSong + 1));
+              dispatch(setPlaying(true));
+            }}
+          >
             <MdSkipNext />
           </span>
           <span

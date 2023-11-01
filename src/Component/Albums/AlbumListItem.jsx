@@ -42,7 +42,6 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
     }
 
     dispatch(playSong(item));
-    dispatch(fetchLyrics(item.encodeId));
     dispatch(setPlaying(true));
 
     if (item.encodeId === currentSongId) {
@@ -107,7 +106,7 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
             </div>
           </div>
         </div>
-        <div className="flex-1 text-[12px] line-clamp-1">
+        <div className="flex-1 text-[12px] line-clamp-1 hidden md:block">
           <Link
             className="text-[var(--text-primary)]"
             to={`/album/${item.album && item.album.encodeId}`}

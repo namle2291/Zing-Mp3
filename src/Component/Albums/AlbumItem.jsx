@@ -11,10 +11,8 @@ function AlbumItem({ data }) {
   const dispatch = useDispatch();
 
   const handleGetAlbum = (item) => {
-    dispatch(setPlaying(false));
     dispatch(fetchAlbum(item.encodeId));
     dispatch(setInfoAlbum(item));
-    dispatch(setPlaying(true));
   };
 
   return (

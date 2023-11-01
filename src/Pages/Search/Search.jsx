@@ -45,7 +45,7 @@ function Search() {
   return (
     <>
       <div>
-        <div className="flex align-items-center md:pl-[20px] flex-col lg:flex-row gap-2">
+        <div className="flex align-items-center flex-col lg:flex-row gap-2">
           <h4 className="m-0 pr-[20px] border-r-[1px]">Kết Quả Tìm Kiếm</h4>
           <nav className="flex flex-wrap align-items-center">
             <Link className="text-[14px] px-[14px] py-[5px] tab-active">
@@ -83,17 +83,17 @@ function Search() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4">
             <div>
               {datas.artists[0] && (
-                <OutstandingItem type="Nghệ sĩ" data={datas.artists[0]} />
+                <OutstandingItem label="Nghệ sĩ" data={datas.artists[0]} />
               )}
             </div>
             <div>
               {datas.playlists[0] && (
-                <OutstandingItem type="Playlist" data={datas.playlists[0]} />
+                <OutstandingItem label="Playlist" data={datas.playlists[0]} />
               )}
             </div>
             <div>
               {datas.songs[0] && (
-                <OutstandingItem type="Bài hát" data={datas.songs[0]} />
+                <OutstandingItem label="Bài hát" data={datas.songs[0]} />
               )}
             </div>
           </div>

@@ -56,6 +56,7 @@ function AudioPlayer() {
       onEnded={() => {
         if (infoSongNext.length > 0) {
           dispatch(setCurrentIndexSong(currentIndexSong + 1));
+          dispatch(setPlaying(true));
         } else {
           dispatch(setPlaying(false));
         }

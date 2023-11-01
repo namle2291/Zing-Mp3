@@ -19,7 +19,7 @@ const tabs = [
 
 export default function RecentSongModal({ active }) {
   const { recentSong } = useSelector((state) => state.recentSong);
-  const { playList, infoSongNext, infoSong, infoAlbumCurrent } = useSelector(
+  const { playList} = useSelector(
     (state) => state.playNow
   );
 
