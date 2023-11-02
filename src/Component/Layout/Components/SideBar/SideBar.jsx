@@ -3,16 +3,18 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./SideBar.module.scss";
 
-import logo from "../../../../assets/images/logo.png";
 import cd from "../../../../assets/images/cd.png";
 
 import SideBarItem from "../../../SideBar/SideBarItem";
 import useViewPort from "../../../../hooks/useViewPort";
 
 import {
+  CateIcon,
   KhamPhaIcon,
   LibraryIcon,
+  MusicNewIcon,
   RadioIcon,
+  StarIcon,
   ZingChartIcon,
 } from "../../../Icon/Icon";
 
@@ -48,21 +50,21 @@ const MENU_ITEMS1 = [
 const MENU_ITEMS2 = [
   {
     id: 1,
-    label: "Nhạc mới",
-    icon: <KhamPhaIcon />,
+    label: "BXH Nhạc mới",
+    icon: <MusicNewIcon />,
     to: "/new-music",
   },
   {
     id: 2,
-    label: "Top 100",
-    icon: <ZingChartIcon />,
-    to: "/top-100",
+    label: "Chủ Đề & Thể Loại",
+    icon: <CateIcon />,
+    to: "/hub",
   },
   {
     id: 3,
-    label: "MV",
-    icon: <RadioIcon />,
-    to: "/mv",
+    label: "Top 100",
+    icon: <StarIcon />,
+    to: "/top-100",
   },
 ];
 

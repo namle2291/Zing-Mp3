@@ -54,7 +54,7 @@ function AudioPlayer() {
       volume={volume}
       onProgress={handleChangeProgress}
       onEnded={() => {
-        if (infoSongNext.length > 0) {
+        if (Object.keys(infoSongNext).length > 0) {
           dispatch(setCurrentIndexSong(currentIndexSong + 1));
           dispatch(setPlaying(true));
         } else {

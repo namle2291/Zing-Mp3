@@ -13,6 +13,7 @@ function AlbumItem({ data }) {
   const handleGetAlbum = (item) => {
     dispatch(fetchAlbum(item.encodeId));
     dispatch(setInfoAlbum(item));
+    dispatch(setPlaying(false));
   };
 
   return (

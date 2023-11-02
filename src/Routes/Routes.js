@@ -5,7 +5,7 @@ import Info from "../Pages/Auth/Info";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import Home from "../Pages/Home/Home";
-import Mv from "../Pages/Mv/Mv";
+import HubHome from "../Pages/HubHome/HubHome";
 import NewMusic from "../Pages/NewMusic/NewMusic";
 import NotFound from "../Pages/NotFound/NotFound";
 import Radio from "../Pages/Radio/Radio";
@@ -60,8 +60,8 @@ const routes = [
     layout: MainLayout,
   },
   {
-    path: "/mv",
-    element: Mv,
+    path: "/hub",
+    element: HubHome,
     layout: MainLayout,
   },
   {

@@ -12,11 +12,14 @@ import {
 } from "react-icons/md";
 import { FiChevronDown } from "react-icons/fi";
 
-import { setCurrentIndexSong, setCurrentTime } from "../../features/setPlayNow/playNow";
+import {
+  setCurrentIndexSong,
+  setCurrentTime,
+} from "../../features/setPlayNow/playNow";
 import formatTimes from "../../utils/formatTimes";
 import Loading from "../Loading/Loading";
 
-import logo from "../../assets/images/logo.png";
+import cd from "../../assets/images/cd.png";
 import ItemLyric from "./ItemLyric";
 import axios from "axios";
 
@@ -47,7 +50,7 @@ function ViewPlayMusicMain({ active, onShow }) {
     >
       <div className="flex justify-between items-center px-3 py-2 bg-[var(--alpha-bg)]">
         <div className="flex items-center justify-center gap-2">
-          <img className="w-[40px] h-[40px] object-cover" src={logo} alt="" />
+          <img className="w-[40px] h-[40px] object-cover" src={cd} alt="" />
           <h5 className="m-0" style={{ color: "var(--player-text)" }}>
             Nam MP3
           </h5>
@@ -69,7 +72,7 @@ function ViewPlayMusicMain({ active, onShow }) {
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
-        <div className="overflow-y-auto max-h-[400px] w-[60%]">
+        <div className="mx-auto md:mx-0 overflow-y-auto h-[250px] md:h-[400px] w-[60%]">
           {loading && <Loading />}
           {!loading &&
             data.sentences &&

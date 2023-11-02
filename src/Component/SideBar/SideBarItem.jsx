@@ -18,7 +18,7 @@ function SideBarItem({ data, mobile }) {
     <Comp to={to}>
       <div
         className={`flex align-items-center gap-2 border-l-4  ${
-          !mobile ? "px-[26px] py-[8px]" : "py-[16px]"
+          !mobile ? "px-[21px] py-[12px]" : "py-[16px]"
         }  ${location.pathname === to ? "side-bar-active" : ""}`}
         style={{
           color: "var(--navigation-text)",

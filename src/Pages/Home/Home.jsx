@@ -54,7 +54,7 @@ function Home() {
             {/* Banner */}
             {dt?.sectionType === "banner" && (
               <>
-                <Swiper spaceBetween={30} slidesPerView={4}>
+                <Swiper spaceBetween={30} slidesPerView={3}>
                   {dt.items.map((item, index) => (
                     <SwiperSlide
                       key={index}

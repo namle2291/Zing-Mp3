@@ -21,7 +21,7 @@ export default function ItemLyric({ data, isShow }) {
 
   return (
     <div
-      className={`text-[var(--text-primary)] text-[30px] ${
+      className={`text-[var(--text-primary)] md:text-[30px] ${
         active ? "text-yellow-300" : ""
       } ${over ? "text-gray-500" : ""}`}
     >

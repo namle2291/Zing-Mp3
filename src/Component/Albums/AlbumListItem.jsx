@@ -39,6 +39,7 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
     if (playing) {
       dispatch(setReady(false));
       dispatch(setPlaying(false));
+      dispatch(setReady(true));
     }
 
     dispatch(playSong(item));

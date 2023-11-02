@@ -22,7 +22,6 @@ function Album() {
     axios.get(lsnAPI.getAlbumPage(id)).then(({ data }) => {
       if (data.err === 0) {
         setData(data.data);
-        dispatch(setPlaying(true));
       } else {
         setErr(data.msg);
       }
