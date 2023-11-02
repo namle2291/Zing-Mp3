@@ -1,14 +1,11 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 
 import Header from "../Components/Header/Header";
 import SideBar from "../Components/SideBar/SideBar";
 import Footer from "../Components/Footer/Footer";
 
-import classNames from "classnames/bind";
-import styles from "./MainLayout.module.scss";
 import { useSelector } from "react-redux";
 
-const cx = classNames.bind(styles);
 
 function MainLayout({ children }) {
   const { currentSongId } = useSelector((satate) => satate.playNow);

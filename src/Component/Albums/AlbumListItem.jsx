@@ -4,8 +4,6 @@ import formatTimes from "../../utils/formatTimes";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchAlbum,
-  fetchLyrics,
   playSong,
   setCurrentIndexSong,
 } from "../../features/setPlayNow/playNow";

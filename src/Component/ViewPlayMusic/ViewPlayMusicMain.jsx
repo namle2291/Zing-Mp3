@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { httpRequest, lsnAPI } from "../../axios/axios-custom";
+import { lsnAPI } from "../../axios/axios-custom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoop, setPlaying } from "../../features/settingPlay/settingPlay";
 import {
@@ -51,7 +51,10 @@ function ViewPlayMusicMain({ active, onShow }) {
       <div className="flex justify-between items-center px-3 py-2 bg-[var(--alpha-bg)]">
         <div className="flex items-center justify-center gap-2">
           <img className="w-[40px] h-[40px] object-cover" src={cd} alt="" />
-          <h5 className="m-0" style={{ color: "var(--player-text)" }}>
+          <h5
+            className="m-0 font-playpen"
+            style={{ color: "var(--player-text)" }}
+          >
             Nam MP3
           </h5>
         </div>

@@ -1,7 +1,5 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
-import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 
 export default function ItemLyric({ data, isShow }) {
   const { played } = useSelector((state) => state.setting);
@@ -25,7 +23,6 @@ export default function ItemLyric({ data, isShow }) {
         active ? "text-yellow-300" : ""
       } ${over ? "text-gray-500" : ""}`}
     >
-      {" "}
       {text}{" "}
     </div>
   );

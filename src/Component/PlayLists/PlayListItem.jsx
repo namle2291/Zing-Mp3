@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo} from "react";
 import { Link } from "react-router-dom";
 
 import { MusicIcon, PlayIcon } from "../Icon/Icon";
@@ -7,14 +7,10 @@ import { useLoading, Audio } from "@agney/react-loading";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchAlbum,
-  fetchLyrics,
-  playSong,
   playSongNotAlbum,
   setCurrentIndexSong,
   setFavouriteSong,
   setInfoAlbum,
-  setIsAlbum,
   setPlayList,
 } from "../../features/setPlayNow/playNow";
 

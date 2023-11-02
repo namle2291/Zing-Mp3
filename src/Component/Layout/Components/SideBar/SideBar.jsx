@@ -86,9 +86,7 @@ function SideBar() {
       <div className="flex align-items-center justify-center py-3">
         <img className="w-[40px] h-[40px] object-cover" src={cd} alt="" />
         <h5
-          className={`pl-3 ${
-            mobile ? "hidden" : "block m-0 font-playpen font-semibold"
-          }`}
+          className={`pl-3 ${mobile ? "hidden" : "block m-0 font-playpen"}`}
           style={{ color: "var(--player-text)" }}
         >
           NamLee
