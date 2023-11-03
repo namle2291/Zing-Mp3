@@ -64,7 +64,7 @@ function Header() {
               className="align-items-center justify-center overflow-hidden rounded-full flex w-[40px] h-[40px] shrink-0 cursor-pointer"
               style={{ backgroundColor: "var(--alpha-bg)" }}
             >
-              <span>
+              <span className="text-[20px]">
                 <FcReddit />
               </span>
             </div>

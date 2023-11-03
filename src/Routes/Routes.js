@@ -5,6 +5,7 @@ import Info from "../Pages/Auth/Info";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import Home from "../Pages/Home/Home";
+import HubDetail from "../Pages/HubDetail/HubDetail";
 import HubHome from "../Pages/HubHome/HubHome";
 import NewMusic from "../Pages/NewMusic/NewMusic";
 import NotFound from "../Pages/NotFound/NotFound";
@@ -62,6 +63,11 @@ const routes = [
   {
     path: "/hub",
     element: HubHome,
+    layout: MainLayout,
+  },
+  {
+    path: "/hub/detail/:id",
+    element: HubDetail,
     layout: MainLayout,
   },
   {

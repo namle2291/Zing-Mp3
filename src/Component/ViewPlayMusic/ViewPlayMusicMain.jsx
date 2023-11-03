@@ -55,7 +55,7 @@ function ViewPlayMusicMain({ active, onShow }) {
             className="m-0 font-playpen"
             style={{ color: "var(--player-text)" }}
           >
-            Nam MP3
+            NamLee
           </h5>
         </div>
         <div>

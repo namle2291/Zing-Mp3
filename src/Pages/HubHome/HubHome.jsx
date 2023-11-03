@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from "react";
 import { lsnAPI } from "../../axios/axios-custom";
 import Loading from "../../Component/Loading/Loading";
 import AlbumItem from "../../Component/Albums/AlbumItem";
+import { Link } from "react-router-dom";
 
 function HubHome() {
   const [data, setData] = useState({});
@@ -36,7 +37,7 @@ function HubHome() {
             <div className="grid grid-cols-4 gap-4">
               {data.featured.items.map((item, index) => {
                 return (
-                  <div key={index} className="relative">
+                  <div key={index} className="relative cursor-pointer">
                     <img
                       className="w-full rounded-lg"
                       src={item.thumbnail}
@@ -57,19 +58,23 @@ function HubHome() {
         {data.nations && (
           <>
             <h3 className="text-[var(--text-primary)]">Quốc gia</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {data.nations.map((item, index) => {
                 return (
-                  <div key={index} className="relative">
+                  <Link
+                    to={`/hub/detail/${item.encodeId}`}
+                    key={index}
+                    className="relative cursor-pointer"
+                  >
                     <img
                       className="w-full rounded-lg"
                       src={item.thumbnail}
                       alt=""
                     />
-                    <span className="absolute inset-center text-[var(--text-primary)]">
+                    <h5 className="absolute inset-center text-[var(--text-primary)]">
                       {item.title}
-                    </span>
-                  </div>
+                    </h5>
+                  </Link>
                 );
               })}
             </div>
@@ -83,10 +88,14 @@ function HubHome() {
             <h3 className="text-[var(--text-primary)]">
               Tâm Trạng Và Hoạt Động
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-              {data.topic.slice(0, 8).map((item) => {
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {data.topic.slice(0, 8).map((item, index) => {
                 return (
-                  <div className="relative">
+                  <Link
+                    to={`/hub/detail/${item.encodeId}`}
+                    key={index}
+                    className="relative cursor-pointer"
+                  >
                     <img
                       className="w-full rounded-lg"
                       src={item.thumbnail}
@@ -112,7 +121,7 @@ function HubHome() {
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
