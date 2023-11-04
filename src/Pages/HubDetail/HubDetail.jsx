@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { lsnAPI } from "../../axios/axios-custom";
 import Loading from "../../Component/Loading/Loading";
 import AlbumItem from "../../Component/Albums/AlbumItem";
@@ -35,9 +35,7 @@ function HubDetail() {
                   sc.items.slice(0, 5).map((item, index) => {
                     return (
                       <div key={index}>
-                        <div>
-                          <AlbumItem data={item} />
-                        </div>
+                        <AlbumItem data={item} />
                       </div>
                     );
                   })}
@@ -49,12 +47,10 @@ function HubDetail() {
                   sc.items.map((item, index) => {
                     return (
                       <div key={index}>
-                        <div>
-                          <PlayListItem
-                            isVip={item?.streamingStatus === 2 ? true : false}
-                            data={item}
-                          />
-                        </div>
+                        <PlayListItem
+                          isVip={item?.streamingStatus === 2 ? true : false}
+                          data={item}
+                        />
                       </div>
                     );
                   })}
@@ -66,9 +62,7 @@ function HubDetail() {
                   sc.items.slice(0, 5).map((item, index) => {
                     return (
                       <div key={index}>
-                        <div>
-                          <MVItem data={item} />
-                        </div>
+                        <MVItem data={item} />
                       </div>
                     );
                   })}
@@ -80,9 +74,7 @@ function HubDetail() {
                   sc.items.slice(0, 5).map((item, index) => {
                     return (
                       <div key={index}>
-                        <div>
-                          <ArtistItem data={item} />
-                        </div>
+                        <ArtistItem data={item} />
                       </div>
                     );
                   })}

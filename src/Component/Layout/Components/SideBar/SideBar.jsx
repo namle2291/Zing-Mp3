@@ -39,12 +39,6 @@ const MENU_ITEMS1 = [
     icon: <RadioIcon />,
     to: "/radio",
   },
-  {
-    id: 4,
-    label: "Thư viện",
-    icon: <LibraryIcon />,
-    to: "/library",
-  },
 ];
 
 const MENU_ITEMS2 = [

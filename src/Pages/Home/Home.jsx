@@ -54,7 +54,7 @@ function Home() {
             {/* Banner */}
             {dt?.sectionType === "banner" && (
               <>
-                <Swiper spaceBetween={30} slidesPerView={3}>
+                <Swiper spaceBetween={30} slidesPerView={3} loop>
                   {dt.items.map((item, index) => (
                     <SwiperSlide
                       key={index}
@@ -62,7 +62,7 @@ function Home() {
                       navigation="true"
                     >
                       <img
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover cursor-pointer"
                         src={item.banner}
                         alt=""
                       />

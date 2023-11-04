@@ -2,11 +2,15 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { SlControlPlay } from "react-icons/sl";
+import formatTimes from "../../utils/formatTimes";
 
 function MVItem({ data }) {
   return (
     <div>
-      <Link className="relative block max-h-[210px] overflow-hidden rounded-md group ">
+      <Link
+        to={`/video/${data.encodeId}`}
+        className="relative block max-h-[210px] overflow-hidden rounded-md group "
+      >
         {/* Overlay */}
         <div className="absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 hidden group-hover:block"></div>
         {/* Controls */}
@@ -21,7 +25,7 @@ function MVItem({ data }) {
           alt=""
         />
         <div className="absolute right-3 bottom-3 bg-slate-700 px-2 text-[13px] rounded-2 text-white">
-          3:30
+          {formatTimes(data.duration)}
         </div>
       </Link>
       <div className="flex align-items-center py-[10px]">

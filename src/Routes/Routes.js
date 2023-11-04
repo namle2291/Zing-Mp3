@@ -12,6 +12,7 @@ import NotFound from "../Pages/NotFound/NotFound";
 import Radio from "../Pages/Radio/Radio";
 import Search from "../Pages/Search/Search";
 import Top100 from "../Pages/Top100/Top100";
+import Video from "../Pages/Video/Video";
 import ZingChart from "../Pages/ZingChart/ZingChart";
 
 const routes = [
@@ -69,6 +70,11 @@ const routes = [
     path: "/hub/detail/:id",
     element: HubDetail,
     layout: MainLayout,
+  },
+  {
+    path: "/video/:id",
+    element: Video,
+    layout: null,
   },
   {
     path: "/search/:q",

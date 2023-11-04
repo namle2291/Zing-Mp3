@@ -50,6 +50,7 @@ import {
   RadioIcon,
   ZingChartIcon,
 } from "../../../Icon/Icon";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -84,9 +85,8 @@ function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [showViewPlayMusic, setShowViewPlayMusic] = useState(false);
 
-  const { duration, infoSong, currentIndexSong, playList } = useSelector(
-    (state) => state.playNow
-  );
+  const { duration, infoSong, currentIndexSong, playList, infoSongNext } =
+    useSelector((state) => state.playNow);
 
   const { playing, volume, loop, played, isReady, isMute } = useSelector(
     (state) => state.setting
@@ -198,14 +198,26 @@ function Footer() {
                 </span>
               </span>
               <span
-                className={`flex align-items-center text-[25px] cursor-pointer`}
+                className={`flex align-items-center text-[25px] ${
+                  currentIndexSong !== playList.length - 1 &&
+                  Object.keys(infoSongNext).length > 0
+                    ? "cursor-pointer"
+                    : "disabled"
+                }`}
                 onClick={() => {
                   if (currentIndexSong !== playList.length - 1)
                     dispatch(setCurrentIndexSong(currentIndexSong + 1));
                   dispatch(setPlaying(true));
                 }}
               >
-                <MdSkipNext />
+                <MdSkipNext
+                  className={`${
+                    currentIndexSong !== playList.length - 1 &&
+                    Object.keys(infoSongNext).length > 0
+                      ? ""
+                      : "text-gray-500"
+                  }`}
+                />
               </span>
               <span
                 className="hidden lg:flex text-[25px] cursor-pointer"
@@ -239,7 +251,12 @@ function Footer() {
           <div className={cx("player-control-right", "w-[15%] md:w-[30%]")}>
             <div className="hidden lg:flex">
               <Link className={cx("mv")}>
-                <span className="rounded-full">
+                <span
+                  className="rounded-full"
+                  onClick={() => {
+                    toast("Chức năng đang phát triển!");
+                  }}
+                >
                   <LiaYoutube />
                 </span>
               </Link>

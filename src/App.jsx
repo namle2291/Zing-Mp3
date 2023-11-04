@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect } from "react";
+import React, { Fragment, memo, useEffect, useLayoutEffect } from "react";
 
 import { routes } from "./Routes/Routes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -86,6 +86,13 @@ function App() {
             {routes.map((item, index) => {
               let Layout = item.layout;
               let Element = item.element;
+
+              if (item.layout) {
+                Layout = item.layout;
+              } else if (!item.layout) {
+                Layout = Fragment;
+              }
+
               return (
                 <Route
                   key={index}
