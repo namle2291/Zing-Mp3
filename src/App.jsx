@@ -11,6 +11,10 @@ import "./index.css";
 import "./assets/css/style.css";
 import { setPlaying } from "./features/settingPlay/settingPlay";
 
+console.log("%cHello!!!", "color: red; font-size: 20px");
+console.log("%cMy name is Nam ^^!", "color: yellow; font-size: 20px");
+
+
 function App() {
   const theme = useSelector((state) => state.themetoggle);
 
@@ -58,12 +62,12 @@ function App() {
       if (isInput) return;
 
       switch (data) {
-        case 32:
-          e.preventDefault();
-          dispatch(setPlaying(!playing));
-          break;
-        default:
-          break;
+      case 32:
+        e.preventDefault();
+        dispatch(setPlaying(!playing));
+        break;
+      default:
+        break;
       }
     };
 
@@ -76,40 +80,40 @@ function App() {
 
   return (
     <>
-      <div
-        className="main"
-        style={theme.bgImg ? { backgroundImage: `url('${theme.bgImg}')` } : {}}
-      >
-        <ToastContainer position="top-center" />
-        <BrowserRouter>
-          <Routes>
-            {routes.map((item, index) => {
-              let Layout = item.layout;
-              let Element = item.element;
+    <div
+    className="main"
+    style={theme.bgImg ? { backgroundImage: `url('${theme.bgImg}')` } : {}}
+    >
+    <ToastContainer position="top-center" />
+    <BrowserRouter>
+    <Routes>
+    {routes.map((item, index) => {
+      let Layout = item.layout;
+      let Element = item.element;
 
-              if (item.layout) {
-                Layout = item.layout;
-              } else if (!item.layout) {
-                Layout = Fragment;
-              }
+      if (item.layout) {
+        Layout = item.layout;
+      } else if (!item.layout) {
+        Layout = Fragment;
+      }
 
-              return (
-                <Route
-                  key={index}
-                  path={item.path}
-                  element={
-                    <Layout>
-                      <Element />
-                    </Layout>
-                  }
-                />
-              );
-            })}
-          </Routes>
-        </BrowserRouter>
-      </div>
+      return (
+        <Route
+        key={index}
+        path={item.path}
+        element={
+          <Layout>
+          <Element />
+          </Layout>
+        }
+        />
+        );
+    })}
+    </Routes>
+    </BrowserRouter>
+    </div>
     </>
-  );
+    );
 }
 
 export default memo(App);

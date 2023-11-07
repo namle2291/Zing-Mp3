@@ -3,6 +3,7 @@ import { SlUserFollow } from "react-icons/sl";
 
 import { Link } from "react-router-dom";
 import formatFollowers from "../../utils/formatFollowers";
+import { toast } from "react-toastify";
 
 function ArtistItem({ data }) {
   return (
@@ -34,7 +35,7 @@ function ArtistItem({ data }) {
           <span className="group-hover:play-btn-hover">
             <SlUserFollow />
           </span>
-          <span className="ml-[5px] group-hover:play-btn-hover">Quan tâm</span>
+          <span className="ml-[5px] group-hover:play-btn-hover" onClick={()=>toast("Chức năng đang phát triển!")}>Quan tâm</span>
         </button>
       </div>
       <div></div>

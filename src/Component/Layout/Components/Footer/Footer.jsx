@@ -38,7 +38,6 @@ import styles from "./Footer.module.scss";
 import AudioPlayer from "../../../PLayer/AudioPlayer";
 
 import {
-  setFavouriteSong,
   setCurrentTime,
   setCurrentIndexSong,
 } from "../../../../features/setPlayNow/playNow";
@@ -51,6 +50,8 @@ import {
   ZingChartIcon,
 } from "../../../Icon/Icon";
 import { toast } from "react-toastify";
+import { Tooltip } from "react-tippy";
+import "react-tippy/dist/tippy.css";
 
 const cx = classNames.bind(styles);
 
@@ -155,7 +156,7 @@ function Footer() {
                 <span
                   className="hidden lg:block text-[var(--text-primary)] cursor-pointer"
                   onClick={() => {
-                    dispatch(setFavouriteSong(infoSong));
+                    toast("Chức năng đang phát triển!");
                   }}
                 >
                   <BiHeart />

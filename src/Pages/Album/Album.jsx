@@ -7,12 +7,14 @@ import AlbumList from "../../Component/Albums/AlbumList";
 import { useDispatch, useSelector } from "react-redux";
 import { MdPauseCircleOutline, MdPlayCircleOutline } from "react-icons/md";
 import { setPlaying } from "../../features/settingPlay/settingPlay";
+import { fetchAlbum, setInfoAlbum } from "../../features/setPlayNow/playNow";
 
 function Album() {
   const [datas, setData] = useState([]);
   const [err, setErr] = useState("");
 
   const { playing } = useSelector((state) => state.setting);
+  const { infoAlbumCurrent } = useSelector((state) => state.playNow);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -45,7 +47,9 @@ function Album() {
           <div className="overflow-hidden shrink-0 mx-auto">
             <img
               className={`w-[100%] h-[100%] object-cover ${
-                playing ? "isPlaying" : "rounded-lg"
+                playing && infoAlbumCurrent.encodeId === datas.encodeId
+                  ? "isPlaying"
+                  : "rounded-lg"
               }`}
               src={datas.thumbnailM}
               alt={datas.title}
@@ -67,28 +71,52 @@ function Album() {
               </div>
             </div>
             <button
-              className="flex align-items-center justify-center rounded-3xl mx-auto px-[24px] py-[5px] mt-[16px] gap-2"
+              className="rounded-3xl mx-auto py-[5px] mt-[16px]2"
               style={{
                 backgroundColor: "var(--purple-primary)",
                 borderColor: "var(--purple-primary)",
                 color: "var(--white)",
               }}
-              onClick={() => dispatch(setPlaying(!playing))}
             >
-              {playing ? (
-                <>
+              {!playing && infoAlbumCurrent.encodeId !== datas.encodeId && (
+                <div
+                  className="px-[24px]"
+                  onClick={() => {
+                    dispatch(fetchAlbum(datas.encodeId));
+                    dispatch(setInfoAlbum(datas));
+                    console.log(datas);
+                  }}
+                >
                   <span className="text-[20px]">
-                    <MdPauseCircleOutline />
+                    <MdPlayCircleOutline />
                   </span>
-                  <span>Tạm dừng</span>{" "}
-                </>
-              ) : (
-                <>
+                  <span>Phát album</span>
+                </div>
+              )}
+              {!playing && infoAlbumCurrent.encodeId === datas.encodeId ? (
+                <div
+                  className="px-[24px]"
+                  onClick={() => {
+                    dispatch(setPlaying(true));
+                  }}
+                >
                   <span className="text-[20px]">
                     <MdPlayCircleOutline />
                   </span>
                   <span>Tiếp tục phát</span>
-                </>
+                </div>
+              ) : (
+                <div
+                  className="px-[24px]"
+                  onClick={() => {
+                    dispatch(setPlaying(false));
+                  }}
+                >
+                  <span className="text-[20px]">
+                    <MdPauseCircleOutline />
+                  </span>
+                  <span>Tạm dừng</span>
+                </div>
               )}
             </button>
           </div>

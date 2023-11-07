@@ -1,10 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import PlayListItem from "../../Component/PlayLists/PlayListItem";
 
 export default function Info() {
   const { userInfo } = useSelector((state) => state.auth);
-  const { favouriteSongs } = useSelector((state) => state.playNow);
 
   return (
     <>
@@ -27,18 +25,13 @@ export default function Info() {
                 className="w-full object-cover"
               />
             </div>
-            <h5 className="text-[var(--text-primary)] mt-2">
-              {userInfo.email}
+            <h5 className="text-[var(--text-primary)] mt-2 text-center">
+              <div>{userInfo.first_name + " " + userInfo.last_name}</div>
+              <div className="text-[14px] my-1">{userInfo.email}</div>
+              <div className="text-[14px] my-1">{userInfo.bio}</div>
             </h5>
           </div>
-          <div className="grid grid-cols-1">
-            {favouriteSongs &&
-              favouriteSongs.map((item, index) => (
-                <div className="" key={index}>
-                  <PlayListItem liked hasIcon data={item} />
-                </div>
-              ))}
-          </div>
+          <div className="grid grid-cols-1"></div>
         </div>
       )}
     </>

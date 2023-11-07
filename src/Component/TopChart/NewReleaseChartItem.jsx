@@ -3,7 +3,7 @@ import React from "react";
 
 export default function NewReleaseChartItem({ data, index }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 cursor-pointer">
       <div className="max-w-[120px] h-[120px] shrink-0 overflow-hidden rounded-md">
         <img
           src={data.thumbnailM}

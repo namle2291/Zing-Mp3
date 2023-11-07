@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   playSongNotAlbum,
   setCurrentIndexSong,
-  setFavouriteSong,
   setInfoAlbum,
   setPlayList,
 } from "../../features/setPlayNow/playNow";
@@ -103,8 +102,9 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
           </div>
           <div>
             <h6
-              className="text-sm mb-0 line-clamp-1 text-[14px]"
-              style={{ color: "var(--player-text)" }}
+              className={`text-sm mb-0 line-clamp-1 text-[14px] text-[var(--text-${
+                isVip ? "secondary" : "primary"
+              })]`}
             >
               {data.title}
               {isVip && (
@@ -137,7 +137,7 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
         <span
           className="w-[24px] h-[24px] cursor-pointer text-white"
           onClick={() => {
-            dispatch(setFavouriteSong(data));
+            toast("Chức năng đang phát triển!");
           }}
         >
           <BiHeart />

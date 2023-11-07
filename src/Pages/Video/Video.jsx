@@ -60,7 +60,7 @@ function Video() {
                     ))}
                 </div>
               </div>
-              <div className="text-[var(--text-primary)]">X</div>
+              <Link to={`/`} className="text-[var(--text-primary)] cursor-pointer">X</Link>
             </div>
             {/* MV */}
             <div className="grid grid-cols-12 mt-4 gap-4">

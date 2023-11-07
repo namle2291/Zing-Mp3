@@ -2,7 +2,7 @@ import React from "react";
 
 import { BiDotsHorizontalRounded, BiHeart } from "react-icons/bi";
 import { SlControlPlay } from "react-icons/sl";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchAlbum, setInfoAlbum } from "../../features/setPlayNow/playNow";
 import { setPlaying } from "../../features/settingPlay/settingPlay";
@@ -10,10 +10,14 @@ import { setPlaying } from "../../features/settingPlay/settingPlay";
 function AlbumItem({ data }) {
   const dispatch = useDispatch();
 
+  const { infoAlbumCurrent } = useSelector((state) => state.playNow);
+
   const handleGetAlbum = (item) => {
-    dispatch(fetchAlbum(item.encodeId));
-    dispatch(setInfoAlbum(item));
-    dispatch(setPlaying(false));
+    if (item.encodeId !== infoAlbumCurrent.encodeId) {
+      dispatch(fetchAlbum(item.encodeId));
+      dispatch(setInfoAlbum(item));
+      dispatch(setPlaying(false));
+    }
   };
 
   return (

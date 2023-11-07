@@ -13,6 +13,8 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from 'swiper/modules';
+import 'swiper/css/navigation';
 import "swiper/css";
 
 const tabs = [
@@ -54,7 +56,7 @@ function Home() {
             {/* Banner */}
             {dt?.sectionType === "banner" && (
               <>
-                <Swiper spaceBetween={30} slidesPerView={3} loop>
+                <Swiper spaceBetween={30} slidesPerView={3} loop navigation={true} modules={[Navigation]}>
                   {dt.items.map((item, index) => (
                     <SwiperSlide
                       key={index}
@@ -128,13 +130,12 @@ function Home() {
             )}
             {/* BXH  */}
             {dt?.sectionType === "newReleaseChart" && (
-              <Swiper spaceBetween={30} slidesPerView={4}>
+              <Swiper spaceBetween={30} slidesPerView={4} loop navigation={true} modules={[Navigation]}>
                 {dt.items &&
                   dt.items.map((item, index) => (
                     <SwiperSlide
                       key={index}
                       className="rounded-lg w-[266px] overflow-hidden"
-                      navigation="true"
                     >
                       <NewReleaseChartItem data={item} index={index + 1} />
                     </SwiperSlide>
@@ -207,7 +208,7 @@ function Home() {
             )}
             {/* Radio */}
             {dt?.sectionType === "livestream" && (
-              <Swiper spaceBetween={30} slidesPerView={7}>
+              <Swiper spaceBetween={30} slidesPerView={7} navigation={true} modules={[Navigation]}>
                 {dt.items &&
                   dt.items.map((item, index) => (
                     <SwiperSlide

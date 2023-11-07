@@ -3,6 +3,7 @@ import { SlClock, SlOptions } from "react-icons/sl";
 import { useSelector } from "react-redux";
 import PlayListItem from "../PlayLists/PlayListItem";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const tabs = [
   {
@@ -19,7 +20,7 @@ const tabs = [
 
 export default function RecentSongModal({ active }) {
   const { recentSong } = useSelector((state) => state.recentSong);
-  const { playList} = useSelector(
+  const { playList, infoSong, infoAlbumCurrent } = useSelector(
     (state) => state.playNow
   );
 
@@ -60,10 +61,27 @@ export default function RecentSongModal({ active }) {
         </span>
       </div>
       <div className="overflow-y-scroll flex-1">
-        {tab.type === "playlist" &&
-          playList.map((item, index) => {
-            return <PlayListItem isAlbum={true} key={index} data={item} />;
-          })}
+        {tab.type === "playlist" && (
+          <>
+            {Object.keys(infoAlbumCurrent).length > 0 && (
+              <>
+                <PlayListItem isAlbum={true} data={infoSong} />
+                <div className="p-2">
+                  <span className="text-[var(--text-primary)]">Tiếp theo</span>
+                  <p className="text-[var(--text-secondary)] text-[14px] m-0">
+                    Từ playlist{" "}
+                    <Link to={`/album/${infoAlbumCurrent.encodeId}`}>
+                      {infoAlbumCurrent.title}
+                    </Link>
+                  </p>
+                </div>
+              </>
+            )}
+            {playList.map((item, index) => (
+              <PlayListItem isAlbum={true} key={index} data={item} />
+            ))}
+          </>
+        )}
         {tab.type === "recent" &&
           recentSong.map((item, index) => {
             return <PlayListItem key={index} data={item} />;
