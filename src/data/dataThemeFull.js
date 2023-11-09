@@ -7,8 +7,7 @@ const themes = [
         itemS:
           "https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/theme/London-thumb.png",
         dataTheme: "light",
-        bgImg:
-          "https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/theme/London-light1.jpg",
+        bgImg: "https://images7.alphacoders.com/328/328582.jpg",
         bgPlaying: false,
         bgHeader: false,
         dataStyle: false,
@@ -109,6 +108,33 @@ const themes = [
         bgPlaying: false,
         bgHeader: false,
         dataStyle: ["--layout-bg: #282828", "--primary-bg: #3d3d3d"],
+      },
+      {
+        name: "Noel",
+        itemS:
+          "https://cdn.tgdd.vn/Files/2020/10/10/1297792/noel-2020-ngay-nao-thu-may-nguon-goc-va-y-nghia-cua-ngay-le-noel-le-giang-sinh-202010102030173176.jpg",
+        dataTheme: "dark",
+        bgImg: "https://images4.alphacoders.com/226/22654.jpg",
+        bgPlaying: false,
+        bgHeader: false,
+        dataStyle: [
+          "--layout-bg: rgba(0, 0, 0, 0.8)",
+          "--primary-bg: rgba(0, 0, 0, 0.8)",
+        ],
+      },
+      {
+        name: "Halloween",
+        itemS:
+          "https://static2-images.vnncdn.net/files/publish/2022/10/18/halloween-ngay-may-1396.jpg",
+        dataTheme: "dark",
+        bgImg:
+          "https://png.pngtree.com/thumb_back/fw800/background/20230615/pngtree-wallpapers-for-tamil-nadu-halloween-2013-image_2905575.jpg",
+        bgPlaying: false,
+        bgHeader: false,
+        dataStyle: [
+          "--layout-bg: rgba(0, 0, 0, 0.8)",
+          "--primary-bg: rgba(0, 0, 0, 0.8)",
+        ],
       },
     ],
   },

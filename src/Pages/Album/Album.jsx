@@ -46,10 +46,10 @@ function Album() {
         <div className="sticky top-0 left-0 flex flex-col gap-3">
           <div className="overflow-hidden shrink-0 mx-auto">
             <img
-              className={`w-[100%] h-[100%] object-cover ${
+              className={`w-[100%] h-[100%] object-cover transition-all ${
                 playing && infoAlbumCurrent.encodeId === datas.encodeId
-                  ? "isPlaying"
-                  : "rounded-lg"
+                  ? "rotate-center"
+                  : "rotate-center-pause rounded-lg"
               }`}
               src={datas.thumbnailM}
               alt={datas.title}

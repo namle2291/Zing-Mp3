@@ -33,17 +33,19 @@ function ChooseTheme({ show, handleClose }) {
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                       {theme.items.map((item, index) => {
                         return (
-                          <div
-                            onClick={() => handleChangeThem(item)}
-                            key={index}
-                            className="rouded-md overflow-hidden"
-                          >
-                            <img
-                              className="w-[100%] object-cover"
-                              src={item.itemS}
-                              alt=""
-                            />
-                            <span className="text-[13px]">{item.name}</span>
+                          <div>
+                            <div
+                              onClick={() => handleChangeThem(item)}
+                              key={index}
+                              className="rouded-md overflow-hidden w-[110px] h-[73px]"
+                            >
+                              <img
+                                className="w-full h-full object-cover"
+                                src={item.itemS}
+                                alt=""
+                              />
+                            </div>
+                            <div className="text-[13px] line-clamp-1">{item.name}</div>
                           </div>
                         );
                       })}

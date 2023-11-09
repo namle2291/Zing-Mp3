@@ -5,6 +5,9 @@ module.exports = {
       playpen: ["Playpen Sans"],
       roboto: ["Roboto"],
     },
+    extend: {
+
+    },
   },
   plugins: [require("flowbite/plugin")],
 };
