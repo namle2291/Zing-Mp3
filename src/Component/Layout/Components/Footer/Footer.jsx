@@ -30,6 +30,7 @@ import {
   setIsMute,
   setLoop,
   setPlaying,
+  setRandom,
   setVolume,
 } from "../../../../features/settingPlay/settingPlay";
 
@@ -52,6 +53,7 @@ import {
 import { toast } from "react-toastify";
 import { Tooltip } from "react-tippy";
 import "react-tippy/dist/tippy.css";
+import { pushSong } from "../../../../features/setRecentSong/setRecentSong";
 
 const cx = classNames.bind(styles);
 
@@ -89,9 +91,8 @@ function Footer() {
   const { duration, infoSong, currentIndexSong, playList, infoSongNext } =
     useSelector((state) => state.playNow);
 
-  const { playing, volume, loop, played, isReady, isMute } = useSelector(
-    (state) => state.setting
-  );
+  const { playing, volume, loop, random, played, isReady, isMute } =
+    useSelector((state) => state.setting);
 
   const dispatch = useDispatch();
 
@@ -130,11 +131,13 @@ function Footer() {
                 <img
                   src={infoSong.thumbnailM}
                   className={`w-full h-full object-cover ${
-                    playing ? "isPlaying" : "rounded-md"
+                    playing ? "rotate-center" : "rotate-center-pause rounded-md"
                   }`}
                   alt=""
                 />
-                <span className="inset-center">{playing && indicatorEl}</span>
+                <span className="inset-center">
+                  {playing && isReady && indicatorEl}
+                </span>
               </div>
               <div className={cx("center")}>
                 <div className={cx("music")}>{infoSong.title}</div>
@@ -170,8 +173,22 @@ function Footer() {
           {/* Center */}
           <div className={cx("player-control-center", "")}>
             <div className={cx("top", "flex align-items-center gap-[25px]")}>
-              <span className="hidden lg:flex text-[25px]">
-                <MdShuffle />
+              <span
+                className={`hidden lg:flex text-[25px] ${
+                  Object.keys(infoSongNext).length > 0
+                    ? "cursor-pointer"
+                    : "disabled"
+                }`}
+                style={random ? { color: "var(--link-text-hover)" } : {}}
+                onClick={() => {
+                  dispatch(setRandom(!random));
+                }}
+              >
+                <MdShuffle
+                  className={`${
+                    Object.keys(infoSongNext).length <= 0 ? "text-gray-500" : ""
+                  }`}
+                />
               </span>
               <span
                 className={`flex align-items-center text-[25px] ${
@@ -180,6 +197,7 @@ function Footer() {
                 onClick={() => {
                   if (currentIndexSong !== 0) {
                     dispatch(setCurrentIndexSong(currentIndexSong - 1));
+                    dispatch(pushSong(playList[currentIndexSong - 1]));
                   }
                 }}
               >
@@ -206,9 +224,11 @@ function Footer() {
                     : "disabled"
                 }`}
                 onClick={() => {
-                  if (currentIndexSong !== playList.length - 1)
+                  if (currentIndexSong !== playList.length - 1) {
                     dispatch(setCurrentIndexSong(currentIndexSong + 1));
-                  dispatch(setPlaying(true));
+                    dispatch(setPlaying(true));
+                    dispatch(pushSong(infoSongNext));
+                  }
                 }}
               >
                 <MdSkipNext

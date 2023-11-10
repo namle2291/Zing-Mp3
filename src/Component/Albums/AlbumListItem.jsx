@@ -11,6 +11,7 @@ import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import { PlayIcon } from "../Icon/Icon";
 import LoadingCircle from "../Loading/LoadingCircle";
 import { Audio, useLoading } from "@agney/react-loading";
+import { pushSong } from "../../features/setRecentSong/setRecentSong";
 
 function AlbumListItem({ item, active, isVip, isAlbum }) {
   const { currentSongId, playList } = useSelector((state) => state.playNow);
@@ -34,17 +35,14 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
 
     dispatch(setCurrentIndexSong(index));
 
-    if (playing) {
-      dispatch(setReady(false));
-      dispatch(setPlaying(false));
-      dispatch(setReady(true));
-    }
-
     dispatch(playSong(item));
     dispatch(setPlaying(true));
+    dispatch(pushSong(item));
 
     if (item.encodeId === currentSongId) {
       dispatch(setPlaying(!playing));
+    } else {
+      dispatch(setReady(false));
     }
   };
 

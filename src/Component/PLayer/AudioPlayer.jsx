@@ -7,12 +7,18 @@ import {
   setReady,
 } from "../../features/settingPlay/settingPlay";
 import { setCurrentIndexSong } from "../../features/setPlayNow/playNow";
+import { pushSong } from "../../features/setRecentSong/setRecentSong";
 
 function AudioPlayer() {
-  const { currentSongId, currentTime, currentIndexSong, infoSongNext } =
-    useSelector((state) => state.playNow);
+  const {
+    currentSongId,
+    currentTime,
+    currentIndexSong,
+    infoSongNext,
+    playList,
+  } = useSelector((state) => state.playNow);
 
-  const { playing, volume, loop, isMute, played } = useSelector(
+  const { playing, volume, loop, random, isMute, played } = useSelector(
     (state) => state.setting
   );
 
@@ -54,9 +60,16 @@ function AudioPlayer() {
       volume={volume}
       onProgress={handleChangeProgress}
       onEnded={() => {
+        dispatch(setReady(false));
         if (Object.keys(infoSongNext).length > 0) {
-          dispatch(setCurrentIndexSong(currentIndexSong + 1));
+          if (random) {
+            let index = Math.round(Math.random() * playList.length - 1);
+            dispatch(setCurrentIndexSong(index));
+          } else {
+            dispatch(setCurrentIndexSong(currentIndexSong + 1));
+          }
           dispatch(setPlaying(true));
+          dispatch(pushSong(infoSongNext));
         } else {
           dispatch(setPlaying(false));
         }

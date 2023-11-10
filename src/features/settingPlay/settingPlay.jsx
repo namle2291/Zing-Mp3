@@ -24,7 +24,10 @@ export const setting = createSlice({
       state.isMute = state.volume === 0 ? true : false;
       localStorage.setItem("setting", JSON.stringify(state));
     },
-    setRandom: (state, action) => {},
+    setRandom: (state, action) => {
+      state.random = action.payload;
+      localStorage.setItem("setting", JSON.stringify(state));
+    },
     setLoop: (state, action) => {
       state.loop = action.payload;
       localStorage.setItem("setting", JSON.stringify(state));

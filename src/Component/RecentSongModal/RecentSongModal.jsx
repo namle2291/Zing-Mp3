@@ -20,9 +20,8 @@ const tabs = [
 
 export default function RecentSongModal({ active }) {
   const { recentSong } = useSelector((state) => state.recentSong);
-  const { playList, infoSong, infoAlbumCurrent } = useSelector(
-    (state) => state.playNow
-  );
+  const { playList, currentIndexSong, infoAlbumCurrent, infoSong } =
+    useSelector((state) => state.playNow);
 
   const [tab, setTab] = useState(tabs[0]);
 
@@ -63,9 +62,11 @@ export default function RecentSongModal({ active }) {
       <div className="overflow-y-scroll flex-1">
         {tab.type === "playlist" && (
           <>
-            {Object.keys(infoAlbumCurrent).length > 0 && (
+            {Object.keys(infoAlbumCurrent).length > 0 ? (
               <>
-                <PlayListItem isAlbum={true} data={infoSong} />
+                {playList.slice(0, currentIndexSong + 1).map((item, index) => (
+                  <PlayListItem isAlbum={true} key={index} data={item} />
+                ))}
                 <div className="p-2">
                   <span className="text-[var(--text-primary)]">Tiếp theo</span>
                   <p className="text-[var(--text-secondary)] text-[14px] m-0">
@@ -75,11 +76,15 @@ export default function RecentSongModal({ active }) {
                     </Link>
                   </p>
                 </div>
+                {playList.slice(currentIndexSong + 1).map((item, index) => (
+                  <PlayListItem isAlbum={true} key={index} data={item} />
+                ))}
+              </>
+            ) : (
+              <>
+                <PlayListItem isAlbum={true} data={infoSong} />
               </>
             )}
-            {playList.map((item, index) => (
-              <PlayListItem isAlbum={true} key={index} data={item} />
-            ))}
           </>
         )}
         {tab.type === "recent" &&

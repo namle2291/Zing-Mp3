@@ -6,7 +6,6 @@ import AlbumListItem from "./AlbumListItem";
 
 export default function AlbumList({ data }) {
   const { currentSongId } = useSelector((state) => state.playNow);
-
   return (
     <div>
       <div className="flex">

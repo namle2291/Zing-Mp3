@@ -59,7 +59,7 @@
   }
 
   .rotate-center-pause {
-    animation: rotate-center-pause .6s linear 1 reverse;
+    animation: rotate-center-pause .7s ease-in 1 reverse;
   }
 
   .disabled {

@@ -40,6 +40,14 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
       return;
     }
 
+    dispatch(setPlaying(true));
+    dispatch(pushSong(item));
+
+    if (!isReady) {
+      toast.warn("Có lỗi xảy ra. Vui lòng thử lại sau!");
+      dispatch(setPlaying(false));
+    }
+
     if (isAlbum) {
       dispatch(setCurrentIndexSong(index));
     }
@@ -50,17 +58,10 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
       dispatch(playSongNotAlbum(item));
     }
 
-    if (playing) {
-      dispatch(setReady(false));
-      dispatch(setPlaying(false));
-      dispatch(setReady(true));
-    }
-
-    dispatch(setPlaying(true));
-    dispatch(pushSong(item));
-
     if (item.encodeId === currentSongId) {
       dispatch(setPlaying(!playing));
+    } else {
+      dispatch(setReady(false));
     }
   };
 
