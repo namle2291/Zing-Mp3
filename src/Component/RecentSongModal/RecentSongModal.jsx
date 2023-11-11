@@ -89,7 +89,9 @@ export default function RecentSongModal({ active }) {
         )}
         {tab.type === "recent" &&
           recentSong.map((item, index) => {
-            return <PlayListItem key={index} data={item} />;
+            return (
+              <PlayListItem key={index} data={item} />
+            );
           })}
       </div>
     </div>

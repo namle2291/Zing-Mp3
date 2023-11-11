@@ -31,6 +31,7 @@ import {
   setLoop,
   setPlaying,
   setRandom,
+  setReady,
   setVolume,
 } from "../../../../features/settingPlay/settingPlay";
 
@@ -125,19 +126,23 @@ function Footer() {
           <div className={cx("player-control-left", "w-[40%] md:w-[30%]")}>
             <div className={cx("media")}>
               <div
-                className={`w-[44px] h-[44px] md:w-[64px] md:h-[64px] relative overflow-hidden shrink-0`}
+                className={`w-[44px] h-[44px] md:w-[64px] md:h-[64px] relative shrink-0`}
                 onClick={handleShowModalViewPlay}
               >
-                <img
-                  src={infoSong.thumbnailM}
-                  className={`w-full h-full object-cover ${
-                    playing ? "rotate-center" : "rotate-center-pause rounded-md"
-                  }`}
-                  alt=""
-                />
-                <span className="inset-center">
-                  {playing && isReady && indicatorEl}
-                </span>
+                <div className="overflow-hidden">
+                  <img
+                    src={infoSong.thumbnailM}
+                    className={`w-full h-full object-cover ${
+                      playing
+                        ? "rotate-center"
+                        : "rotate-center-pause rounded-md"
+                    }`}
+                    alt=""
+                  />
+                  <span className="inset-center">
+                    {playing && isReady && indicatorEl}
+                  </span>
+                </div>
               </div>
               <div className={cx("center")}>
                 <div className={cx("music")}>{infoSong.title}</div>
@@ -198,6 +203,7 @@ function Footer() {
                   if (currentIndexSong !== 0) {
                     dispatch(setCurrentIndexSong(currentIndexSong - 1));
                     dispatch(pushSong(playList[currentIndexSong - 1]));
+                    dispatch(setReady(false));
                   }
                 }}
               >
@@ -226,7 +232,7 @@ function Footer() {
                 onClick={() => {
                   if (currentIndexSong !== playList.length - 1) {
                     dispatch(setCurrentIndexSong(currentIndexSong + 1));
-                    dispatch(setPlaying(true));
+                    dispatch(setReady(false));
                     dispatch(pushSong(infoSongNext));
                   }
                 }}

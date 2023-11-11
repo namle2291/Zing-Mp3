@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdPauseCircleOutline, MdPlayCircleOutline } from "react-icons/md";
 import { setPlaying } from "../../features/settingPlay/settingPlay";
 import { fetchAlbum, setInfoAlbum } from "../../features/setPlayNow/playNow";
+import LoadingCircle from "../../Component/Loading/LoadingCircle";
+import formatFollowers from "../../utils/formatFollowers";
+import formatDate from "../../utils/formatDate";
 
 function Album() {
   const [datas, setData] = useState([]);
   const [err, setErr] = useState("");
 
   const { playing } = useSelector((state) => state.setting);
-  const { infoAlbumCurrent } = useSelector((state) => state.playNow);
+  const { infoAlbumCurrent, loading } = useSelector((state) => state.playNow);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -63,10 +66,10 @@ function Album() {
             >
               <div>
                 <span>Cập nhật: </span>
-                <span>{datas.contentLastUpdate}</span>
+                <span>{formatDate(datas.contentLastUpdate)}</span>
               </div>
               <div>
-                <span>{datas.like}</span>
+                <span>{formatFollowers(datas.like)}</span>
                 <span> người yêu thích</span>
               </div>
             </div>
@@ -78,13 +81,12 @@ function Album() {
                 color: "var(--white)",
               }}
             >
-              {!playing && infoAlbumCurrent.encodeId !== datas.encodeId && (
+              {infoAlbumCurrent.encodeId !== datas.encodeId && (
                 <div
                   className="px-[24px]"
                   onClick={() => {
                     dispatch(fetchAlbum(datas.encodeId));
                     dispatch(setInfoAlbum(datas));
-                    console.log(datas);
                   }}
                 >
                   <span className="text-[20px]">
@@ -93,31 +95,43 @@ function Album() {
                   <span>Phát album</span>
                 </div>
               )}
-              {!playing && infoAlbumCurrent.encodeId === datas.encodeId ? (
-                <div
-                  className="px-[24px]"
-                  onClick={() => {
-                    dispatch(setPlaying(true));
-                  }}
-                >
+              {loading && (
+                <div className="px-[24px]">
                   <span className="text-[20px]">
-                    <MdPlayCircleOutline />
+                    <LoadingCircle />
                   </span>
-                  <span>Tiếp tục phát</span>
-                </div>
-              ) : (
-                <div
-                  className="px-[24px]"
-                  onClick={() => {
-                    dispatch(setPlaying(false));
-                  }}
-                >
-                  <span className="text-[20px]">
-                    <MdPauseCircleOutline />
-                  </span>
-                  <span>Tạm dừng</span>
                 </div>
               )}
+              {!playing &&
+                !loading &&
+                infoAlbumCurrent.encodeId === datas.encodeId && (
+                  <div
+                    className="px-[24px]"
+                    onClick={() => {
+                      dispatch(setPlaying(true));
+                    }}
+                  >
+                    <span className="text-[20px]">
+                      <MdPlayCircleOutline />
+                    </span>
+                    <span>Tiếp tục phát</span>
+                  </div>
+                )}
+              {playing &&
+                !loading &&
+                infoAlbumCurrent.encodeId === datas.encodeId && (
+                  <div
+                    className="px-[24px]"
+                    onClick={() => {
+                      dispatch(setPlaying(false));
+                    }}
+                  >
+                    <span className="text-[20px]">
+                      <MdPauseCircleOutline />
+                    </span>
+                    <span>Tạm dừng</span>
+                  </div>
+                )}
             </button>
           </div>
         </div>

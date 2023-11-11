@@ -91,10 +91,19 @@ const playNow = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAlbum.pending, (state) => {
+      state.loading = true;
+      localStorage.setItem("play_now", JSON.stringify(state));
+    });
+    builder.addCase(fetchAlbum.rejected, (state) => {
+      state.loading = false;
+      localStorage.setItem("play_now", JSON.stringify(state));
+    });
     builder.addCase(fetchAlbum.fulfilled, (state, { payload }) => {
       state.playList = payload.data.song.items.filter(
         (e) => e.streamingStatus === 1
       );
+      state.loading = false;
       state.currentTime = 0;
       state.currentIndexSong = 0;
       state.infoSong = state.playList[state.currentIndexSong];

@@ -41,6 +41,7 @@ function AudioPlayer() {
 
   const onReady = useCallback(() => {
     dispatch(setReady(true));
+    dispatch(setPlaying(true));
     if (!isReady) {
       if (audioRef.current) {
         audioRef?.current?.seekTo(currentTime, "seconds");
@@ -65,13 +66,15 @@ function AudioPlayer() {
           if (random) {
             let index = Math.round(Math.random() * playList.length - 1);
             dispatch(setCurrentIndexSong(index));
+            dispatch(pushSong(playList[index]));
           } else {
             dispatch(setCurrentIndexSong(currentIndexSong + 1));
+            dispatch(pushSong(infoSongNext));
           }
           dispatch(setPlaying(true));
-          dispatch(pushSong(infoSongNext));
         } else {
           dispatch(setPlaying(false));
+          dispatch(setReady(true));
         }
       }}
       onReady={onReady}

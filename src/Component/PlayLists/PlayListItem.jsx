@@ -40,13 +40,8 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
       return;
     }
 
-    dispatch(setPlaying(true));
+    // dispatch(setPlaying(false));
     dispatch(pushSong(item));
-
-    if (!isReady) {
-      toast.warn("Có lỗi xảy ra. Vui lòng thử lại sau!");
-      dispatch(setPlaying(false));
-    }
 
     if (isAlbum) {
       dispatch(setCurrentIndexSong(index));
