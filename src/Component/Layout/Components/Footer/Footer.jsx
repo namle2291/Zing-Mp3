@@ -1,4 +1,10 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -52,7 +58,6 @@ import {
   ZingChartIcon,
 } from "../../../Icon/Icon";
 import { toast } from "react-toastify";
-import { Tooltip } from "react-tippy";
 import "react-tippy/dist/tippy.css";
 import { pushSong } from "../../../../features/setRecentSong/setRecentSong";
 
@@ -114,10 +119,6 @@ function Footer() {
     setShowViewPlayMusic(!showViewPlayMusic);
   }, [showViewPlayMusic]);
 
-  useEffect(() => {
-    dispatch(setPlaying(false));
-  }, []);
-
   return (
     <>
       <div className={cx("wrapper", "z-50")}>
@@ -133,7 +134,7 @@ function Footer() {
                   <img
                     src={infoSong.thumbnailM}
                     className={`w-full h-full object-cover ${
-                      playing
+                      playing && isReady
                         ? "rotate-center"
                         : "rotate-center-pause rounded-md"
                     }`}
@@ -204,6 +205,7 @@ function Footer() {
                     dispatch(setCurrentIndexSong(currentIndexSong - 1));
                     dispatch(pushSong(playList[currentIndexSong - 1]));
                     dispatch(setReady(false));
+                    dispatch(setPlaying(true));
                   }
                 }}
               >
@@ -234,6 +236,7 @@ function Footer() {
                     dispatch(setCurrentIndexSong(currentIndexSong + 1));
                     dispatch(setReady(false));
                     dispatch(pushSong(infoSongNext));
+                    dispatch(setPlaying(true));
                   }
                 }}
               >

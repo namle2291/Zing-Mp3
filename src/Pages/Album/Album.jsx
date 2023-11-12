@@ -16,7 +16,7 @@ function Album() {
   const [datas, setData] = useState([]);
   const [err, setErr] = useState("");
 
-  const { playing } = useSelector((state) => state.setting);
+  const { playing, isReady } = useSelector((state) => state.setting);
   const { infoAlbumCurrent, loading } = useSelector((state) => state.playNow);
 
   const { id } = useParams();
@@ -50,7 +50,7 @@ function Album() {
           <div className="overflow-hidden shrink-0 mx-auto">
             <img
               className={`w-[100%] h-[100%] object-cover transition-all ${
-                playing && infoAlbumCurrent.encodeId === datas.encodeId
+                playing && isReady && infoAlbumCurrent.encodeId === datas.encodeId
                   ? "rotate-center"
                   : "rotate-center-pause rounded-lg"
               }`}

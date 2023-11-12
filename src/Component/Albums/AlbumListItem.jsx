@@ -34,7 +34,6 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
     let index = playList.indexOf(e);
 
     dispatch(setCurrentIndexSong(index));
-
     dispatch(playSong(item));
     dispatch(setPlaying(true));
     dispatch(pushSong(item));

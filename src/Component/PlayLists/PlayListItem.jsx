@@ -40,7 +40,7 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
       return;
     }
 
-    // dispatch(setPlaying(false));
+    dispatch(setPlaying(true));
     dispatch(pushSong(item));
 
     if (isAlbum) {

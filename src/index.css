@@ -57,7 +57,6 @@
     border-radius: 50%;
     animation: rotate-center 8s linear infinite;
   }
-
   .rotate-center-pause {
     animation: rotate-center-pause .7s ease-in 1 reverse;
   }
