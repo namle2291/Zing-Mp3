@@ -60,7 +60,7 @@ function AudioPlayer() {
     <ReactPlayer
       ref={audioRef}
       controls={false}
-      url={`http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/320`}
+      url={`http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/128`}
       playing={playing}
       muted={isMute}
       loop={loop}

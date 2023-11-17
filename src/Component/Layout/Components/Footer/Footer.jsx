@@ -1,10 +1,4 @@
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -118,6 +112,10 @@ function Footer() {
   const handleShowModalViewPlay = useCallback(() => {
     setShowViewPlayMusic(!showViewPlayMusic);
   }, [showViewPlayMusic]);
+
+  useEffect(() => {
+    dispatch(setPlaying(false));
+  }, []);
 
   return (
     <>

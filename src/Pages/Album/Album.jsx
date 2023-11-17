@@ -47,16 +47,25 @@ function Album() {
     <div className="flex flex-col lg:flex-row">
       <div className="md:w-[33%] text-center mx-auto">
         <div className="sticky top-0 left-0 flex flex-col gap-3">
-          <div className="overflow-hidden shrink-0 mx-auto">
+          <div
+            className="overflow-hidden shrink-0 mx-auto cursor-pointer relative"
+            onClick={() => dispatch(setPlaying(!playing))}
+          >
             <img
               className={`w-[100%] h-[100%] object-cover transition-all ${
-                playing && isReady && infoAlbumCurrent.encodeId === datas.encodeId
+                playing &&
+                isReady &&
+                infoAlbumCurrent.encodeId === datas.encodeId
                   ? "rotate-center"
                   : "rotate-center-pause rounded-lg"
               }`}
               src={datas.thumbnailM}
               alt={datas.title}
             />
+            <div className="absolute inset-center text-white text-[40px]">
+              {!playing && <MdPlayCircleOutline />}
+              {playing && <MdPauseCircleOutline />}
+            </div>
           </div>
           <div className="mt-[10px]">
             <h4>{datas.title}</h4>
