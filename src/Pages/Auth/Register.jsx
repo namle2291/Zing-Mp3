@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  clearData,
-  fetchAuth,
-  setEmail,
-  setPassword,
-} from "../../features/setAuth/setAuth";
+import { fetchAuth } from "../../features/setAuth/setAuth";
 import { toast } from "react-toastify";
 import LoadingCircle from "../../Component/Loading/LoadingCircle";
 
 export default function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { email, password, loading, token } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, token } = useSelector((state) => state.auth);
 
   const handleSubmit = () => {
     if (email && password !== "") {
@@ -34,7 +29,6 @@ export default function Register() {
     } else {
       toast.warn("tài khoản hoặc mật khẩu không bỏ trống!");
     }
-    dispatch(clearData());
   };
 
   useEffect(() => {
@@ -61,7 +55,7 @@ export default function Register() {
               color: "var(--text-primary)",
               border: "1px solid var(--sidebar-bg)",
             }}
-            onChange={(e) => dispatch(setEmail(e.target.value))}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -74,7 +68,7 @@ export default function Register() {
             style={{
               border: "1px solid var(--sidebar-bg)",
             }}
-            onChange={(e) => dispatch(setPassword(e.target.value))}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div

@@ -12,7 +12,7 @@ import "./assets/css/style.css";
 import { setPlaying } from "./features/settingPlay/settingPlay";
 
 console.log("%cHello!!!", "color: red; font-size: 20px");
-console.log("%cMy name is Nam ^^!", "color: yellow; font-size: 20px");
+console.log("%cWelcome to my app!", "color: yellow; font-size: 20px");
 
 
 function App() {

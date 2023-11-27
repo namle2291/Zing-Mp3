@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  clearData,
   fetchAuth,
-  setEmail,
-  setPassword,
 } from "../../features/setAuth/setAuth";
 
 import LoadingCircle from "../../Component/Loading/LoadingCircle";
@@ -12,12 +9,12 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { email, password, loading, token } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, token } = useSelector((state) => state.auth);
 
   const handleSubmit = () => {
     if (email && password !== "") {
@@ -34,7 +31,6 @@ export default function Login() {
     } else {
       toast.warn("tài khoản hoặc mật khẩu không bỏ trống!");
     }
-    dispatch(clearData());
   };
 
   useEffect(() => {
@@ -58,7 +54,7 @@ export default function Login() {
             color: "var(--text-primary)",
             border: "1px solid var(--sidebar-bg)",
           }}
-          onChange={(e) => dispatch(setEmail(e.target.value))}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -71,7 +67,7 @@ export default function Login() {
           style={{
             border: "1px solid var(--sidebar-bg)",
           }}
-          onChange={(e) => dispatch(setPassword(e.target.value))}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div

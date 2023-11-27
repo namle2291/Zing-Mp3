@@ -119,17 +119,23 @@ function Header() {
                 }
               >
                 <span className="py-3">
-                  <img
-                    className="w-[100%] h-[100%] object-cover"
-                    src={`${
-                      userInfo &&
-                      userInfo.avatar !==
-                        "https://files.fullstack.edu.vn/f8-tiktok/"
-                        ? userInfo.avatar
-                        : "https://avatar.talk.zdn.vn/default"
-                    }`}
-                    alt=""
-                  />
+                  {userInfo ? (
+                    <img
+                      className="w-[100%] h-[100%] object-cover"
+                      src={`${
+                        userInfo.avatar
+                          ? userInfo.avatar
+                          : "https://avatar.talk.zdn.vn/default"
+                      }`}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      className="w-[100%] h-[100%] object-cover"
+                      src="https://avatar.talk.zdn.vn/default"
+                      alt=""
+                    />
+                  )}
                 </span>
               </Tippy>
             </div>
