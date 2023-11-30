@@ -9,6 +9,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./index.css";
 import "./assets/css/style.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { setPlaying } from "./features/settingPlay/settingPlay";
 
 console.log("%cHello!!!", "color: red; font-size: 20px");

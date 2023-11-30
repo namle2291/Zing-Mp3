@@ -13,9 +13,10 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from 'swiper/modules';
-import 'swiper/css/navigation';
+import { Navigation } from "swiper/modules";
+import "swiper/css/navigation";
 import "swiper/css";
+import Slider from "react-slick";
 
 const tabs = [
   {
@@ -34,6 +35,15 @@ const tabs = [
     value: "others",
   },
 ];
+
+var settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+};
 
 function Home() {
   const [tab, setTab] = useState("all");
@@ -56,9 +66,9 @@ function Home() {
             {/* Banner */}
             {dt?.sectionType === "banner" && (
               <>
-                <Swiper spaceBetween={30} slidesPerView={3} loop navigation={true} modules={[Navigation]}>
+                <Slider {...settings}>
                   {dt.items.map((item, index) => (
-                    <SwiperSlide
+                    <div
                       key={index}
                       className="rounded-lg w-[266px] overflow-hidden"
                       navigation="true"
@@ -68,9 +78,9 @@ function Home() {
                         src={item.banner}
                         alt=""
                       />
-                    </SwiperSlide>
+                    </div>
                   ))}
-                </Swiper>
+                </Slider>
               </>
             )}
             {/* Mới phát hành */}
@@ -130,17 +140,17 @@ function Home() {
             )}
             {/* BXH  */}
             {dt?.sectionType === "newReleaseChart" && (
-              <Swiper spaceBetween={30} slidesPerView={4} loop navigation={true} modules={[Navigation]}>
+              <Slider slidesToShow={4} autoplay={true}>
                 {dt.items &&
                   dt.items.map((item, index) => (
-                    <SwiperSlide
+                    <div
                       key={index}
                       className="rounded-lg w-[266px] overflow-hidden"
                     >
                       <NewReleaseChartItem data={item} index={index + 1} />
-                    </SwiperSlide>
+                    </div>
                   ))}
-              </Swiper>
+              </Slider>
             )}
             {/* Chart  */}
             {dt?.sectionType === "RTChart" && (
@@ -208,18 +218,18 @@ function Home() {
             )}
             {/* Radio */}
             {dt?.sectionType === "livestream" && (
-              <Swiper spaceBetween={30} slidesPerView={7} navigation={true} modules={[Navigation]}>
+              <Slider slidesToShow={7} autoplay={true}>
                 {dt.items &&
                   dt.items.map((item, index) => (
-                    <SwiperSlide
+                    <div
                       key={index}
                       className="rounded-lg w-[266px] overflow-hidden"
                       navigation="true"
                     >
                       <RadioItem data={item} />
-                    </SwiperSlide>
+                    </div>
                   ))}
-              </Swiper>
+              </Slider>
             )}
           </div>
         ))}
