@@ -83,7 +83,7 @@ function SideBar() {
           className={`pl-3 ${mobile ? "hidden" : "block m-0 font-playpen"}`}
           style={{ color: "var(--player-text)" }}
         >
-          MP3
+          NamLee
         </h5>
       </div>
       <div>
