@@ -12,10 +12,6 @@ import TopChartItem from "../../Component/TopChart/TopChartItem";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css/navigation";
-import "swiper/css";
 import Slider from "react-slick";
 
 const tabs = [
