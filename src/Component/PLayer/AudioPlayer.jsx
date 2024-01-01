@@ -19,6 +19,7 @@ import { pushSong } from "../../features/setRecentSong/setRecentSong";
 function AudioPlayer() {
   const {
     currentSongId,
+    infoSong,
     currentTime,
     currentIndexSong,
     infoSongNext,
@@ -60,7 +61,7 @@ function AudioPlayer() {
     <ReactPlayer
       ref={audioRef}
       controls={false}
-      url={`http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/128`}
+      url={infoSong.source}
       playing={playing}
       muted={isMute}
       loop={loop}

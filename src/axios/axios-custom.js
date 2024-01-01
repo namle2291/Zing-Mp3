@@ -2,8 +2,10 @@ import axios from "axios";
 
 const apiEndpoint = "https://api-zingmp3.vercel.app/api";
 
+// "https://api-zingmp3-public.vercel.app/api"
+
 const httpRequest = axios.create({
-  baseURL: "https://api-zingmp3-public.vercel.app/api",
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export const lsnAPI = {
@@ -46,7 +48,7 @@ export const lsnAPI = {
   // get getAlbumPage :
   getAlbumPage: (id) => `${apiEndpoint}/playlist/${id}`,
 
-  getSong: (id) => `https://api-zingmp3-public.vercel.app/api/song?id=${id}`,
+  getSong: (id) => `${process.env.REACT_APP_API_URL}/song?id=${id}`,
 
   getSuggestedAlbum: (id) => `${apiEndpoint}/suggestedplaylists/${id}`,
 

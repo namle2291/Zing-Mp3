@@ -4,14 +4,18 @@ import formatTimes from "../../utils/formatTimes";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchSong,
   playSong,
   setCurrentIndexSong,
+  setSourceSong,
 } from "../../features/setPlayNow/playNow";
 import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import { PlayIcon } from "../Icon/Icon";
 import LoadingCircle from "../Loading/LoadingCircle";
 import { Audio, useLoading } from "@agney/react-loading";
 import { pushSong } from "../../features/setRecentSong/setRecentSong";
+import axios from "axios";
+import { lsnAPI } from "../../axios/axios-custom";
 
 function AlbumListItem({ item, active, isVip, isAlbum }) {
   const { currentSongId, playList } = useSelector((state) => state.playNow);
@@ -24,7 +28,7 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
 
   const dispatch = useDispatch();
 
-  const fetchSong = (item) => {
+  const handlePlaySong = (item) => {
     if (isVip) {
       toast("Dành cho tài khoản Vip");
       return;
@@ -55,7 +59,7 @@ function AlbumListItem({ item, active, isVip, isAlbum }) {
         <div className="w-[53%] flex gap-2">
           <div
             className="w-[40px] h-[40px] shrink-0 overflow-hidden rounded-sm cursor-pointer relative"
-            onClick={() => fetchSong(item)}
+            onClick={() => handlePlaySong(item)}
           >
             <div
               className={`absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 group-hover:block ${

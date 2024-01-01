@@ -4,7 +4,7 @@ import { routes } from "./Routes/Routes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./index.css";
@@ -17,13 +17,19 @@ import { setPlaying } from "./features/settingPlay/settingPlay";
 console.log("%cHello!!!", "color: red; font-size: 20px");
 console.log("%cWelcome to my app!", "color: yellow; font-size: 20px");
 
-
 function App() {
   const theme = useSelector((state) => state.themetoggle);
 
   const { playing } = useSelector((state) => state.setting);
+  const { message } = useSelector((state) => state.playNow);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (message) {
+      toast.info(message);
+    }
+  }, [message]);
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute("data-theme", theme.dataTheme);
@@ -65,12 +71,12 @@ function App() {
       if (isInput) return;
 
       switch (data) {
-      case 32:
-        e.preventDefault();
-        dispatch(setPlaying(!playing));
-        break;
-      default:
-        break;
+        case 32:
+          e.preventDefault();
+          dispatch(setPlaying(!playing));
+          break;
+        default:
+          break;
       }
     };
 
@@ -83,40 +89,40 @@ function App() {
 
   return (
     <>
-    <div
-    className="main"
-    style={theme.bgImg ? { backgroundImage: `url('${theme.bgImg}')` } : {}}
-    >
-    <ToastContainer position="top-center" />
-    <BrowserRouter>
-    <Routes>
-    {routes.map((item, index) => {
-      let Layout = item.layout;
-      let Element = item.element;
+      <div
+        className="main"
+        style={theme.bgImg ? { backgroundImage: `url('${theme.bgImg}')` } : {}}
+      >
+        <ToastContainer position="top-center" />
+        <BrowserRouter>
+          <Routes>
+            {routes.map((item, index) => {
+              let Layout = item.layout;
+              let Element = item.element;
 
-      if (item.layout) {
-        Layout = item.layout;
-      } else if (!item.layout) {
-        Layout = Fragment;
-      }
+              if (item.layout) {
+                Layout = item.layout;
+              } else if (!item.layout) {
+                Layout = Fragment;
+              }
 
-      return (
-        <Route
-        key={index}
-        path={item.path}
-        element={
-          <Layout>
-          <Element />
-          </Layout>
-        }
-        />
-        );
-    })}
-    </Routes>
-    </BrowserRouter>
-    </div>
+              return (
+                <Route
+                  key={index}
+                  path={item.path}
+                  element={
+                    <Layout>
+                      <Element />
+                    </Layout>
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </BrowserRouter>
+      </div>
     </>
-    );
+  );
 }
 
 export default memo(App);

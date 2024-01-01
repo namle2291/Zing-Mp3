@@ -42,6 +42,7 @@ import AudioPlayer from "../../../PLayer/AudioPlayer";
 import {
   setCurrentTime,
   setCurrentIndexSong,
+  fetchSong,
 } from "../../../../features/setPlayNow/playNow";
 import RecentSongModal from "../../../RecentSongModal/RecentSongModal";
 import ViewPlayMusicMain from "../../../ViewPlayMusic/ViewPlayMusicMain";
@@ -88,8 +89,14 @@ function Footer() {
   const [showModal, setShowModal] = useState(false);
   const [showViewPlayMusic, setShowViewPlayMusic] = useState(false);
 
-  const { duration, infoSong, currentIndexSong, playList, infoSongNext } =
-    useSelector((state) => state.playNow);
+  const {
+    currentSongId,
+    duration,
+    infoSong,
+    currentIndexSong,
+    playList,
+    infoSongNext,
+  } = useSelector((state) => state.playNow);
 
   const { playing, volume, loop, random, played, isReady, isMute } =
     useSelector((state) => state.setting);
@@ -116,6 +123,10 @@ function Footer() {
   useEffect(() => {
     dispatch(setPlaying(false));
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchSong(infoSong.encodeId));
+  }, [currentSongId]);
 
   return (
     <>

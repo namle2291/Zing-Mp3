@@ -7,16 +7,20 @@ import { useLoading, Audio } from "@agney/react-loading";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchSong,
   playSongNotAlbum,
   setCurrentIndexSong,
   setInfoAlbum,
   setPlayList,
+  setSourceSong,
 } from "../../features/setPlayNow/playNow";
 
 import { toast } from "react-toastify";
 import { setPlaying, setReady } from "../../features/settingPlay/settingPlay";
 import LoadingCircle from "../Loading/LoadingCircle";
 import { pushSong } from "../../features/setRecentSong/setRecentSong";
+import { lsnAPI } from "../../axios/axios-custom";
+import axios from "axios";
 
 function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
   const { currentSongId, playList } = useSelector((state) => state.playNow);
@@ -31,14 +35,14 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
 
   let active = data.encodeId === currentSongId;
 
-  const fetchSong = (item) => {
-    let e = playList.find((e) => e.encodeId === item.encodeId);
-    let index = playList.indexOf(e);
-
+  const handlePlaySong = (item) => {
     if (isVip) {
       toast("Dành cho tài khoản Vip");
       return;
     }
+
+    let e = playList.find((e) => e.encodeId === item.encodeId);
+    let index = playList.indexOf(e);
 
     dispatch(setPlaying(true));
     dispatch(pushSong(item));
@@ -75,7 +79,7 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
         <div className="flex items-center">
           <div
             className="w-[60px] h-[60px] rounded-md overflow-hidden mr-[10px] relative shrink-0 cursor-pointer"
-            onClick={() => fetchSong(data)}
+            onClick={() => handlePlaySong(data)}
           >
             <div
               className={`absolute left-0 right-0 bottom-0 top-0 bg-slate-900 opacity-50 group-hover:block ${
@@ -98,7 +102,7 @@ function PlayListItem({ data, hasIcon, isVip, isAlbum, hasLike = true }) {
           </div>
           <div>
             <h6
-              className={`text-sm mb-0 line-clamp-1 text-[14px] text-[var(--text-${
+              className={`max-w-[180px] text-sm mb-0 line-clamp-1 text-[14px] text-[var(--text-${
                 isVip ? "secondary" : "primary"
               })]`}
             >

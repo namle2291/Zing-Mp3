@@ -10,12 +10,21 @@ export const fetchAlbum = createAsyncThunk(
   }
 );
 
+export const fetchSong = createAsyncThunk(
+  "setSong/fetchSong",
+  async (encodeId) => {
+    const rs = await axios.get(lsnAPI.getSong(encodeId));
+    return rs.data;
+  }
+);
+
 const initialState = JSON.parse(localStorage.getItem("play_now")) || {
   currentSongId: null,
   loading: false,
   currentTime: 0,
   duration: 0,
   infoSong: {},
+  message: '',
   favouriteSongs: [],
   // Album
   playList: [],
@@ -69,6 +78,7 @@ const playNow = createSlice({
       state.infoAlbumCurrent = action.payload;
       localStorage.setItem("play_now", JSON.stringify(state));
     },
+    setSourceSong: (state, action) => {},
     setPlayList: (state, action) => {
       state.playList = action.payload;
       localStorage.setItem("play_now", JSON.stringify(state));
@@ -112,6 +122,22 @@ const playNow = createSlice({
       state.duration = state.infoSong.duration;
       localStorage.setItem("play_now", JSON.stringify(state));
     });
+
+    builder.addCase(fetchSong.pending, (state) => {});
+    builder.addCase(fetchSong.rejected, (state) => {});
+    builder.addCase(fetchSong.fulfilled, (state, { payload }) => {
+      let info = state.infoSong;
+
+      if (payload.err === 0) {
+        let newInfo = { ...info, source: payload.data['128'] };
+        state.infoSong = newInfo;
+        state.message = '';
+      }else{
+        state.message = payload.msg;
+      }
+
+      localStorage.setItem("play_now", JSON.stringify(state));
+    });
   },
 });
 
@@ -122,6 +148,7 @@ export const {
   setIsAlbum,
   setCurrentIndexSong,
   setInfoAlbum,
+  setSourceSong,
   setPlayList,
   setNextSong,
   playSongNotAlbum,
