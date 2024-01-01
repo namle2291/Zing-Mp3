@@ -21,7 +21,7 @@ function App() {
   const theme = useSelector((state) => state.themetoggle);
 
   const { playing } = useSelector((state) => state.setting);
-  const { message } = useSelector((state) => state.playNow);
+  const { message, currentSongId } = useSelector((state) => state.playNow);
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ function App() {
     if (message) {
       toast.info(message);
     }
-  }, [message]);
+  }, [message, currentSongId]);
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute("data-theme", theme.dataTheme);

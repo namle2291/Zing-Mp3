@@ -42,6 +42,7 @@ const playNow = createSlice({
       state.infoSong = payload;
       state.currentSongId = payload.encodeId;
       state.currentTime = 0;
+      state.message = '';
       state.duration = payload.duration;
       localStorage.setItem("play_now", JSON.stringify(state));
     },
@@ -52,6 +53,7 @@ const playNow = createSlice({
       state.duration = payload.duration;
       state.playList = [payload];
       state.currentIndexSong = 0;
+      state.message = '';
       state.infoAlbumCurrent = [];
       state.infoSongNext = {};
       localStorage.setItem("play_now", JSON.stringify(state));
